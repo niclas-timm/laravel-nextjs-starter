@@ -11,6 +11,7 @@ import { useState } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { login } from "./../../store/auth/authActions";
+import { UserValidator } from "./../../services/UserValidator";
 
 const Login = (props: {}) => {
     /**
@@ -37,7 +38,29 @@ const Login = (props: {}) => {
     };
 
     const submit = () => {
+        const userValidator = new UserValidator();
         const { email, password } = formData;
+
+        // Check for valid email address.
+        const isEmailValid = userValidator.validateEmail(email);
+        if (!isEmailValid) {
+            setFormData({
+                ...formData,
+                error: "Please provide a valid email address",
+            });
+            return;
+        }
+
+        // Check for valid password.
+        if (!password) {
+            setFormData({
+                ...formData,
+                error: "Please provide a valid password",
+            });
+            return;
+        }
+
+        // Make API call if everything is fine.
         props.login(email, password);
     };
 

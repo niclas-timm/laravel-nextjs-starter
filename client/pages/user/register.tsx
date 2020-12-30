@@ -54,7 +54,8 @@ function Register(props: {}) {
             password_confirmed,
             8
         );
-        console.log(isInputValid);
+
+        // Put error to local state if we have an error.
         if (!isInputValid) {
             setFormData({
                 ...formData,
@@ -62,7 +63,8 @@ function Register(props: {}) {
             });
             return;
         }
-        return;
+
+        // Make API call if validaton was successful.
         props.register(name, email, password, password_confirmed);
     };
 
