@@ -142,7 +142,21 @@ export const register = (
                 dispatch(loadUser());
             }
         } catch (error: any) {
-            console.log(error);
+            if (error.response.status === 422) {
+                const emailErrorMsg = error.response.data.errors.email[0];
+
+                if (emailErrorMsg) {
+                    dispatch({
+                        type: types.AUTHENTICATION_ERROR,
+                        payload: emailErrorMsg,
+                    });
+                }
+            } else {
+                dispatch({
+                    type: types.AUTHENTICATION_ERROR,
+                    payload: "Sorry, something went wrong.",
+                });
+            }
         }
     };
 };

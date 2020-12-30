@@ -49,7 +49,7 @@ const auth = (state = initState, action: { type: string; payload: any }) => {
                 ...state,
                 isAuthenticated: false,
                 authError: "",
-                credentialsError: action.payload.errorMsg,
+                credentialsError: action.payload,
             };
     }
     return state;
