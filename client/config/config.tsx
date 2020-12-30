@@ -1,3 +1,12 @@
+/*
+|--------------------------------------------------------------------------
+| Configuration
+|--------------------------------------------------------------------------
+|
+| Vital default configurations that should NOT be changed.
+|
+*/
+
 import axios from "axios";
 
 // Configure axios in order to be able to make api requests to the laravel backend.
