@@ -10,6 +10,7 @@
 
 import * as types from "../actionTypes";
 
+// The initial state.
 const initState = {
     isAuthenticated: false,
     loading: true,
@@ -18,6 +19,14 @@ const initState = {
     credentialsError: "",
 };
 
+/**
+ * The auth store.
+ *
+ * @param {object} state
+ *   The inital state.
+ * @param {object} action
+ *   The dispatched action.
+ */
 const auth = (state = initState, action: { type: string; payload: any }) => {
     switch (action.type) {
         case types.AUTH_SUCCESS:

@@ -7,10 +7,10 @@
 |
 */
 
-import { ChangeEvent, FormEvent, useState } from "react";
+import { useState } from "react";
 import { connect } from "react-redux";
-import PropTypes, { string } from "prop-types";
-import { login } from "./../../store/actions/auth";
+import PropTypes from "prop-types";
+import { login } from "./../../store/auth/authActions";
 
 const Login = (props: {}) => {
     /**
