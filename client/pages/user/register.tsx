@@ -7,13 +7,20 @@
 |
 */
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { register } from "./../../store/auth/authActions";
 import { UserValidator } from "./../../services/UserValidator";
+import { Card } from "./../../components/Card/Card";
+import { TextInput } from "./../../components/Form/FormElement";
+import { H1 } from "./../../components/Typography/Headers";
+import { PrimaryButton } from "./../../components/Button/Button";
+import { Alert } from "./../../components/Alert/Alert";
+import Link from "next/link";
+import { useRouter } from "next/router";
 
-function Register(props: {}) {
+function Register(props: any) {
     /**
      * The state.
      */
@@ -22,8 +29,21 @@ function Register(props: {}) {
         email: "",
         password: "",
         password_confirmed: "",
-        error: "",
+        nameError: "",
+        emailError: "",
+        passwordError: "",
+        password_confirmedError: "",
     });
+
+    // The router object used for redirecting after login.
+    const router = useRouter();
+
+    // Redirect if user is authenticated.
+    useEffect(() => {
+        if (props.isAuthenticated && !props.loading) {
+            router.push("/dashboard");
+        }
+    }, [props.isAuthenticated, props.loading]);
 
     /**
      * Handle input change.
@@ -35,7 +55,7 @@ function Register(props: {}) {
         setFormData({
             ...formData,
             [e.currentTarget.name]: e.currentTarget.value,
-            error: "",
+            [`${e.currentTarget.name}Error`]: "",
         });
     };
 
@@ -47,7 +67,7 @@ function Register(props: {}) {
 
         // Get instance of userValidator class and validate the input.
         const userValidator = new UserValidator();
-        const isInputValid = userValidator.validateRegistrationInput(
+        const inputErrors = userValidator.validateRegistrationInput(
             name,
             email,
             password,
@@ -56,10 +76,13 @@ function Register(props: {}) {
         );
 
         // Put error to local state if we have an error.
-        if (!isInputValid) {
+        if (typeof inputErrors === "object" && inputErrors !== null) {
             setFormData({
                 ...formData,
-                error: "Please make sure to provide valid data.",
+                nameError: inputErrors.name || "",
+                emailError: inputErrors.email || "",
+                passwordError: inputErrors.password || "",
+                password_confirmedError: inputErrors.password || "",
             });
             return;
         }
@@ -71,54 +94,86 @@ function Register(props: {}) {
     /**
      * The Return statement. Responsible for rendering the markup.
      */
+
     return (
-        <div>
-            <input
-                type="text"
-                value={formData.name}
-                onChange={(e) => {
-                    handleInputChange(e);
-                }}
-                name="name"
-            />
-            <input
-                type="text"
-                value={formData.email}
-                onChange={(e) => {
-                    handleInputChange(e);
-                }}
-                name="email"
-            />
-            <input
-                type="password"
-                value={formData.password}
-                onChange={(e) => {
-                    handleInputChange(e);
-                }}
-                name="password"
-            />
-            <input
-                type="password"
-                value={formData.password_confirmed}
-                onChange={(e) => {
-                    handleInputChange(e);
-                }}
-                name="password_confirmed"
-            />
-            <button
-                onClick={() => {
-                    submit();
-                }}
-            >
-                Submit
-            </button>
+        <div className="w-screen h-screen relative">
+            <div className="absolute w-full md:w-3/5 lg:w-1/3 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+                <Card
+                    verticalAlign="center"
+                    horizontalAlign="center"
+                    additionalClasses="bg-gray-100"
+                >
+                    <>
+                        {props.registerError && (
+                            <Alert type="danger">{props.registerError}</Alert>
+                        )}
+                        <H1 withMargin={true} center={true}>
+                            Register
+                        </H1>
+                        <TextInput
+                            type="text"
+                            value={formData.name}
+                            placeholder="Your name..."
+                            onChange={(e) => {
+                                handleInputChange(e);
+                            }}
+                            name="name"
+                            errorMsg={formData.nameError}
+                        />
+                        <TextInput
+                            type="email"
+                            value={formData.email}
+                            placeholder="Your email..."
+                            onChange={(e) => {
+                                handleInputChange(e);
+                            }}
+                            name="email"
+                            errorMsg={formData.emailError}
+                        />
+                        <TextInput
+                            type="password"
+                            value={formData.password}
+                            placeholder="Your password..."
+                            onChange={(e) => {
+                                handleInputChange(e);
+                            }}
+                            name="password"
+                            errorMsg={formData.passwordError}
+                        />
+                        <TextInput
+                            type="password"
+                            value={formData.password_confirmed}
+                            placeholder="Confirm your password..."
+                            onChange={(e) => {
+                                handleInputChange(e);
+                            }}
+                            name="password_confirmed"
+                            errorMsg={formData.password_confirmedError}
+                        />
+                        <PrimaryButton
+                            onClick={() => {
+                                submit();
+                            }}
+                        >
+                            Register
+                        </PrimaryButton>
+                        <div className="w-full flex mt-3 text-blue-500">
+                            <Link href="/user/register">
+                                <a className="text-xs underline">
+                                    Already have an account?
+                                </a>
+                            </Link>
+                        </div>
+                    </>
+                </Card>
+            </div>
         </div>
     );
 }
 
 const mapStateToProps = (state: any) => ({
     isAuthenticated: state.auth.isAuthenticated,
-    credentialsError: state.auth.credentialsError,
+    registerError: state.auth.registerError,
 });
 
 Register.propTypes = {

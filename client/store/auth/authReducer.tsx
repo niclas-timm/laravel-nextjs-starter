@@ -15,8 +15,10 @@ const initState = {
     isAuthenticated: false,
     loading: true,
     user: {},
+    loginError: "",
+    registerError: "",
     authError: "",
-    credentialsError: "",
+    userLoadedError: "",
 };
 
 /**
@@ -32,24 +34,42 @@ const auth = (state = initState, action: { type: string; payload: any }) => {
         case types.AUTH_SUCCESS:
             return {
                 ...state,
+                loading: false,
                 isAuthenticated: true,
-                authError: "",
-                credentialsError: "",
+                loginError: "",
+                registerError: "",
             };
         case types.USER_LOADED:
             return {
                 ...state,
+                loading: false,
                 isAuthenticated: true,
-                authError: "",
-                credentialsError: "",
+                loginError: "",
+                registerError: "",
                 user: action.payload,
             };
-        case types.AUTHENTICATION_ERROR:
+        case types.USER_LOADED_ERROR:
             return {
                 ...state,
+                loading: false,
                 isAuthenticated: false,
-                authError: "",
-                credentialsError: action.payload,
+                userLoadedError: action.payload,
+            };
+        case types.LOGIN_ERROR:
+            return {
+                ...state,
+                loading: false,
+                isAuthenticated: false,
+                user: {},
+                loginError: action.payload,
+            };
+        case types.REGISTER_ERROR:
+            return {
+                ...state,
+                loading: false,
+                isAuthenticated: false,
+                user: {},
+                registerError: action.payload,
             };
     }
     return state;

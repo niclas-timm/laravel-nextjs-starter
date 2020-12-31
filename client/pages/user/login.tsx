@@ -7,21 +7,39 @@
 |
 */
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { login } from "./../../store/auth/authActions";
 import { UserValidator } from "./../../services/UserValidator";
+import { Card } from "./../../components/Card/Card";
+import { TextInput } from "./../../components/Form/FormElement";
+import { H1 } from "./../../components/Typography/Headers";
+import { PrimaryButton } from "./../../components/Button/Button";
+import { Alert } from "./../../components/Alert/Alert";
+import { useRouter } from "next/router";
+import Link from "next/link";
 
-const Login = (props: {}) => {
+const Login = (props: any) => {
     /**
      * The state.
      */
     const [formData, setFormData] = useState({
         email: "",
         password: "",
-        error: "",
+        emailError: "",
+        passwordError: "",
     });
+
+    // The router object used for redirecting after login.
+    const router = useRouter();
+
+    // Redirect if user is authenticated.
+    useEffect(() => {
+        if (props.isAuthenticated && !props.loading) {
+            router.push("/dashboard");
+        }
+    }, [props.isAuthenticated, props.loading]);
 
     /**
      * Handle input change.
@@ -33,10 +51,14 @@ const Login = (props: {}) => {
         setFormData({
             ...formData,
             [e.currentTarget.name]: e.currentTarget.value,
-            error: "",
+            emailError: "",
+            passwordError: "",
         });
     };
 
+    /**
+     * Submit the form.
+     */
     const submit = () => {
         const userValidator = new UserValidator();
         const { email, password } = formData;
@@ -46,7 +68,7 @@ const Login = (props: {}) => {
         if (!isEmailValid) {
             setFormData({
                 ...formData,
-                error: "Please provide a valid email address",
+                emailError: "Please provide a valid email address",
             });
             return;
         }
@@ -55,7 +77,7 @@ const Login = (props: {}) => {
         if (!password) {
             setFormData({
                 ...formData,
-                error: "Please provide a valid password",
+                passwordError: "Please provide a valid password",
             });
             return;
         }
@@ -68,37 +90,64 @@ const Login = (props: {}) => {
      * The Return statement. Responsible for rendering the markup.
      */
     return (
-        <div>
-            <input
-                type="text"
-                value={formData.email}
-                onChange={(e) => {
-                    handleInputChange(e);
-                }}
-                name="email"
-            />
-            <input
-                type="password"
-                value={formData.password}
-                onChange={(e) => {
-                    handleInputChange(e);
-                }}
-                name="password"
-            />
-            <button
-                onClick={() => {
-                    submit();
-                }}
-            >
-                Submit
-            </button>
+        <div className="w-screen h-screen relative">
+            <div className="absolute w-full md:w-3/5 lg:w-1/3 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+                <Card
+                    verticalAlign="center"
+                    horizontalAlign="center"
+                    additionalClasses="bg-gray-100"
+                >
+                    <>
+                        {props.loginError && (
+                            <Alert type="danger">{props.loginError}</Alert>
+                        )}
+                        <H1 withMargin={true} center={true}>
+                            Login
+                        </H1>
+                        <TextInput
+                            type="text"
+                            value={formData.email}
+                            placeholder="Your email address..."
+                            onChange={(e) => {
+                                handleInputChange(e);
+                            }}
+                            name="email"
+                            errorMsg={formData.emailError}
+                        />
+                        <TextInput
+                            type="password"
+                            value={formData.password}
+                            placeholder="Your password..."
+                            onChange={(e) => {
+                                handleInputChange(e);
+                            }}
+                            name="password"
+                            errorMsg={formData.passwordError}
+                        />
+                        <PrimaryButton
+                            onClick={() => {
+                                submit();
+                            }}
+                        >
+                            Login
+                        </PrimaryButton>
+                        <div className="w-full flex mt-3 text-blue-500">
+                            <Link href="/user/register">
+                                <a className="text-xs underline">
+                                    No Account yet?
+                                </a>
+                            </Link>
+                        </div>
+                    </>
+                </Card>
+            </div>
         </div>
     );
 };
 
 const mapStateToProps = (state: any) => ({
     isAuthenticated: state.auth.isAuthenticated,
-    credentialsError: state.auth.credentialsError,
+    loginError: state.auth.loginError,
 });
 
 Login.propTypes = {

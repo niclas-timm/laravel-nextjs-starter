@@ -22,20 +22,18 @@ import * as types from "../actionTypes";
 export const loadUser = () => {
     return async (dispatch: CallableFunction) => {
         try {
-            // await axios.get("/sanctum/csrf-cookie");
+            await axios.get("/sanctum/csrf-cookie");
             const res = await axios.get("/api/user");
 
             // User was loaded successfully.
             if (res.status === 200) {
-                dispatch({ type: types.USER_LOADED, payload: res.data });
+                return dispatch({ type: types.USER_LOADED, payload: res.data });
             }
         } catch (error) {
             if (error.response.status === 422) {
                 return dispatch({
-                    type: types.AUTHENTICATION_ERROR,
-                    payload: {
-                        errorMsg: "Email oder Passwort sind nicht korrekt.",
-                    },
+                    type: types.USER_LOADED_ERROR,
+                    payload: "Email or password are incorrect.",
                 });
             }
             if (error.response.status === 419) {
@@ -47,10 +45,8 @@ export const loadUser = () => {
                 });
             } else {
                 return dispatch({
-                    type: types.AUTHENTICATION_ERROR,
-                    payload: {
-                        errorMsg: "Sorry, etwas ist schief gelaufen.",
-                    },
+                    type: types.USER_LOADED_ERROR,
+                    payload: "Sorry, something went wrong.",
                 });
             }
         }
@@ -84,25 +80,19 @@ export const login = (email: string, password: string): any => {
         } catch (error: any) {
             if (error.response.status === 422) {
                 return dispatch({
-                    type: types.AUTHENTICATION_ERROR,
-                    payload: {
-                        errorMsg: "Email oder Passwort sind nicht korrekt.",
-                    },
+                    type: types.LOGIN_ERROR,
+                    payload: "Email or password are incorrect.",
                 });
             }
             if (error.response.status === 419) {
                 return dispatch({
-                    type: types.AUTHENTICATION_ERROR,
-                    payload: {
-                        errorMsg: "Keinen Serverzugang.",
-                    },
+                    type: types.LOGIN_ERROR,
+                    payload: "Application access denied.",
                 });
             } else {
                 return dispatch({
                     type: types.AUTHENTICATION_ERROR,
-                    payload: {
-                        errorMsg: "Sorry, etwas ist schief gelaufen.",
-                    },
+                    payload: "Sorry, somethig went wrong.",
                 });
             }
         }
@@ -130,6 +120,7 @@ export const register = (
     return async (dispatch: CallableFunction) => {
         try {
             // API Call.
+            await axios.get("/sanctum/csrf-cookie");
             const res = await axios.post("/register", {
                 name,
                 email,
@@ -147,13 +138,13 @@ export const register = (
 
                 if (emailErrorMsg) {
                     dispatch({
-                        type: types.AUTHENTICATION_ERROR,
+                        type: types.REGISTER_ERROR,
                         payload: emailErrorMsg,
                     });
                 }
             } else {
                 dispatch({
-                    type: types.AUTHENTICATION_ERROR,
+                    type: types.REGISTER_ERROR,
                     payload: "Sorry, something went wrong.",
                 });
             }

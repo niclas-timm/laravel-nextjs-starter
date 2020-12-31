@@ -31,11 +31,18 @@ export class UserValidator {
         password: string,
         passwordConfirmed: string,
         minPassChars: number
-    ): boolean {
+    ): { name: string; email: string; password: string } | boolean {
+        let errorDetected = false;
+        const errors = {
+            name: "",
+            password: "",
+            email: "",
+        };
         // Check name.
         const isNameValid = this.validateName(name);
         if (!isNameValid) {
-            return false;
+            errors.name = "The name may only contain letters.";
+            errorDetected = true;
         }
 
         // Check password.
@@ -45,17 +52,23 @@ export class UserValidator {
             minPassChars
         );
         if (!isPasswordValid) {
-            return false;
+            errors.password =
+                "The password must be at least 8 characters long.";
+            errorDetected = true;
         }
 
         // Check email.
         const isEmailValid = this.validateEmail(email);
         if (!isEmailValid) {
-            return false;
+            errors.email = "Please provide a valid email address.";
+            errorDetected = true;
         }
 
-        // Return true if everythin is valid.s
-        return true;
+        // Return true if everythin is valid.
+        if (!errorDetected) {
+            return true;
+        }
+        return errors;
     }
 
     /**
