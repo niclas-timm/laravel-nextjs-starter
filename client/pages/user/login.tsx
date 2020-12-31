@@ -101,9 +101,12 @@ const Login = (props: any) => {
                         {props.loginError && (
                             <Alert type="danger">{props.loginError}</Alert>
                         )}
+                        {/* The main Header */}
                         <H1 withMargin={true} center={true}>
                             Login
                         </H1>
+
+                        {/* Email */}
                         <TextInput
                             type="text"
                             value={formData.email}
@@ -114,6 +117,8 @@ const Login = (props: any) => {
                             name="email"
                             errorMsg={formData.emailError}
                         />
+
+                        {/* Password */}
                         <TextInput
                             type="password"
                             value={formData.password}
@@ -124,6 +129,8 @@ const Login = (props: any) => {
                             name="password"
                             errorMsg={formData.passwordError}
                         />
+
+                        {/* Submit Button */}
                         <PrimaryButton
                             onClick={() => {
                                 submit();
@@ -131,6 +138,8 @@ const Login = (props: any) => {
                         >
                             Login
                         </PrimaryButton>
+
+                        {/* Additional links. */}
                         <div className="w-full flex mt-3 text-blue-500">
                             <Link href="/user/register">
                                 <a className="text-xs underline">
@@ -145,11 +154,13 @@ const Login = (props: any) => {
     );
 };
 
+// Map redux states to local component props.
 const mapStateToProps = (state: any) => ({
     isAuthenticated: state.auth.isAuthenticated,
     loginError: state.auth.loginError,
 });
 
+// Define PropTypes.
 Login.propTypes = {
     props: PropTypes.object,
     login: PropTypes.func,

@@ -21,9 +21,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 
 function Register(props: any) {
-    /**
-     * The state.
-     */
+    // The state
     const [formData, setFormData] = useState({
         name: "",
         email: "",
@@ -104,12 +102,17 @@ function Register(props: any) {
                     additionalClasses="bg-gray-100"
                 >
                     <>
+                        {/* Display error message when we have one from the server. */}
                         {props.registerError && (
                             <Alert type="danger">{props.registerError}</Alert>
                         )}
+
+                        {/* The main header */}
                         <H1 withMargin={true} center={true}>
                             Register
                         </H1>
+
+                        {/* Name */}
                         <TextInput
                             type="text"
                             value={formData.name}
@@ -120,6 +123,8 @@ function Register(props: any) {
                             name="name"
                             errorMsg={formData.nameError}
                         />
+
+                        {/* Email */}
                         <TextInput
                             type="email"
                             value={formData.email}
@@ -130,6 +135,8 @@ function Register(props: any) {
                             name="email"
                             errorMsg={formData.emailError}
                         />
+
+                        {/* Password */}
                         <TextInput
                             type="password"
                             value={formData.password}
@@ -140,6 +147,8 @@ function Register(props: any) {
                             name="password"
                             errorMsg={formData.passwordError}
                         />
+
+                        {/* Password confirmation */}
                         <TextInput
                             type="password"
                             value={formData.password_confirmed}
@@ -150,6 +159,8 @@ function Register(props: any) {
                             name="password_confirmed"
                             errorMsg={formData.password_confirmedError}
                         />
+
+                        {/* Submit button */}
                         <PrimaryButton
                             onClick={() => {
                                 submit();
@@ -157,6 +168,8 @@ function Register(props: any) {
                         >
                             Register
                         </PrimaryButton>
+
+                        {/* Additional links. */}
                         <div className="w-full flex mt-3 text-blue-500">
                             <Link href="/user/register">
                                 <a className="text-xs underline">
@@ -171,11 +184,13 @@ function Register(props: any) {
     );
 }
 
+// Map redux states to local component props.
 const mapStateToProps = (state: any) => ({
     isAuthenticated: state.auth.isAuthenticated,
     registerError: state.auth.registerError,
 });
 
+// Define Prop Types.
 Register.propTypes = {
     props: PropTypes.object,
     register: PropTypes.func,
