@@ -20,8 +20,11 @@ import { Alert } from "./../../components/Alert/Alert";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { SmallSpinner } from "./../../components/Spinner/Spinner";
+import { GetServerSideProps } from "next";
+import { AuthGuard } from "../../services/Auth/AuthGuard";
 
 function Register(props: any) {
+    console.log(props);
     // The state
     const [formData, setFormData] = useState({
         name: "",
@@ -39,10 +42,10 @@ function Register(props: any) {
 
     // Redirect if user is authenticated.
     useEffect(() => {
-        if (props.isAuthenticated && !props.loading) {
+        if (props.user) {
             router.push("/dashboard");
         }
-    }, [props.isAuthenticated, props.loading]);
+    }, [props.user]);
 
     /**
      * Handle input change.
@@ -89,11 +92,10 @@ function Register(props: any) {
         // Make API call if validaton was successful.
         props.register(name, email, password, password_confirmed);
     };
-
+    console.log(props);
     /**
      * The Return statement. Responsible for rendering the markup.
      */
-
     return (
         <div className="w-screen h-screen relative">
             <div className="absolute w-full md:w-3/5 lg:w-1/3 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
@@ -198,5 +200,9 @@ Register.propTypes = {
     props: PropTypes.object,
     register: PropTypes.func,
 };
-
 export default connect(mapStateToProps, { register })(Register);
+
+export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
+    const authenticator = new AuthGuard();
+    return authenticator.redirectOnAuthentication(req, res);
+};

@@ -29,7 +29,6 @@ export const loadUser = () => {
             // User was loaded successfully.
             if (res.status === 200) {
                 dispatch({ type: types.USER_LOADED, payload: res.data });
-                console.log(res.data);
                 return res.data;
             }
         } catch (error) {
