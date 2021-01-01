@@ -14,6 +14,7 @@ import * as types from "../actionTypes";
 const initState = {
     isAuthenticated: false,
     loading: true,
+    loginLoading: false,
     user: {},
     loginError: "",
     registerError: "",
@@ -55,18 +56,40 @@ const auth = (state = initState, action: { type: string; payload: any }) => {
                 isAuthenticated: false,
                 userLoadedError: action.payload,
             };
+        case types.START_LOGIN_LOADING:
+            return {
+                ...state,
+                loginLoading: true,
+            };
+        case types.LOGIN_SUCCESS:
+            return {
+                ...state,
+                isAuthenticated: true,
+                loginLoading: false,
+            };
         case types.LOGIN_ERROR:
             return {
                 ...state,
-                loading: false,
+                loginLoading: false,
                 isAuthenticated: false,
                 user: {},
                 loginError: action.payload,
             };
+        case types.START_REGISTER_LOADING:
+            return {
+                ...state,
+                registerLoading: true,
+            };
+        case types.REGISTER_SUCCESS:
+            return {
+                ...state,
+                isAuthenticated: true,
+                registerLoading: false,
+            };
         case types.REGISTER_ERROR:
             return {
                 ...state,
-                loading: false,
+                registerLoading: false,
                 isAuthenticated: false,
                 user: {},
                 registerError: action.payload,

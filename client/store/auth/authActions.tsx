@@ -10,6 +10,7 @@
 */
 
 import axios from "axios";
+import { type } from "os";
 import * as types from "../actionTypes";
 
 /**
@@ -27,7 +28,9 @@ export const loadUser = () => {
 
             // User was loaded successfully.
             if (res.status === 200) {
-                return dispatch({ type: types.USER_LOADED, payload: res.data });
+                dispatch({ type: types.USER_LOADED, payload: res.data });
+                console.log(res.data);
+                return res.data;
             }
         } catch (error) {
             if (error.response.status === 422) {
@@ -64,6 +67,10 @@ export const loadUser = () => {
 export const login = (email: string, password: string): any => {
     return async (dispatch: CallableFunction) => {
         try {
+            // Start loading.
+            dispatch({ type: types.START_LOGIN_LOADING });
+
+            // Make api requests.
             await axios.get("/sanctum/csrf-cookie");
             const res = await axios.post("/login", {
                 email,
@@ -74,7 +81,7 @@ export const login = (email: string, password: string): any => {
             if (res.status === 204) {
                 dispatch(loadUser());
                 dispatch({
-                    type: types.AUTH_SUCCESS,
+                    type: types.LOGIN_SUCCESS,
                 });
             }
         } catch (error: any) {
@@ -119,6 +126,9 @@ export const register = (
 ) => {
     return async (dispatch: CallableFunction) => {
         try {
+            dispatch({
+                type: types.START_REGISTER_LOADING,
+            });
             // API Call.
             await axios.get("/sanctum/csrf-cookie");
             const res = await axios.post("/register", {

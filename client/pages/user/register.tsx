@@ -19,6 +19,7 @@ import { PrimaryButton } from "./../../components/Button/Button";
 import { Alert } from "./../../components/Alert/Alert";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import { SmallSpinner } from "./../../components/Spinner/Spinner";
 
 function Register(props: any) {
     // The state
@@ -166,6 +167,7 @@ function Register(props: any) {
                                 submit();
                             }}
                         >
+                            <SmallSpinner show={props.loading} />
                             Register
                         </PrimaryButton>
 
@@ -188,6 +190,7 @@ function Register(props: any) {
 const mapStateToProps = (state: any) => ({
     isAuthenticated: state.auth.isAuthenticated,
     registerError: state.auth.registerError,
+    loading: state.auth.registerLoading,
 });
 
 // Define Prop Types.

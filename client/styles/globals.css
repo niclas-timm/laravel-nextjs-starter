@@ -1,3 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.border-top-colored {
+    border-top-color: #4f46e5;
+}

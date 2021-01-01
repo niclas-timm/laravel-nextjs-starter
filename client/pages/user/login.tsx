@@ -19,6 +19,7 @@ import { PrimaryButton } from "./../../components/Button/Button";
 import { Alert } from "./../../components/Alert/Alert";
 import { useRouter } from "next/router";
 import Link from "next/link";
+import { SmallSpinner } from "./../../components/Spinner/Spinner";
 
 const Login = (props: any) => {
     /**
@@ -136,6 +137,7 @@ const Login = (props: any) => {
                                 submit();
                             }}
                         >
+                            <SmallSpinner show={props.loading} />
                             Login
                         </PrimaryButton>
 
@@ -158,6 +160,7 @@ const Login = (props: any) => {
 const mapStateToProps = (state: any) => ({
     isAuthenticated: state.auth.isAuthenticated,
     loginError: state.auth.loginError,
+    loading: state.auth.loginLoading,
 });
 
 // Define PropTypes.
