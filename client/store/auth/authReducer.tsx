@@ -94,6 +94,18 @@ const auth = (state = initState, action: { type: string; payload: any }) => {
                 user: {},
                 registerError: action.payload,
             };
+        case types.LOGOUT:
+            return {
+                ...state,
+                isAuthenticated: false,
+                loading: false,
+                loginLoading: false,
+                user: {},
+                loginError: "",
+                registerError: "",
+                authError: "",
+                userLoadedError: "",
+            };
     }
     return state;
 };

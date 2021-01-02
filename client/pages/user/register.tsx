@@ -89,7 +89,6 @@ function Register(props: any) {
         // Make API call if validaton was successful.
         props.register(name, email, password, password_confirmed);
     };
-    console.log(props);
     /**
      * The Return statement. Responsible for rendering the markup.
      */

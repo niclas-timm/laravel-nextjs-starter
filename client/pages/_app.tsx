@@ -47,9 +47,18 @@ MyApp.getInitialProps = async ({ ctx }) => {
     const req = ctx.req;
     const pathname = ctx.pathname;
     const res = ctx.res;
+
+    /**
+     * Abort if one var is not present.
+     * For example, the req obj will be undefined if we don't
+     * have a page reload but a page switch via the Next Router.
+     */
+    if (!req || !pathname || !res) {
+        return {};
+    }
+
     const authenticator = new AuthGuard();
-    const user = await authenticator.authenticateUser(req, res, pathname);
-    return user;
+    return await authenticator.authenticateUser(req, res, pathname);
 };
 
 export default MyApp;

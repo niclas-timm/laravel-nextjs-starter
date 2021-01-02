@@ -160,3 +160,21 @@ export const register = (
         }
     };
 };
+
+/**
+ * Log current user out.
+ */
+export const logout = () => {
+    return async (dispatch: CallableFunction) => {
+        try {
+            const res = await axios.post("/logout");
+            if (res.status === 204) {
+                dispatch({
+                    type: types.LOGOUT,
+                });
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    };
+};
