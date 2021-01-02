@@ -10,7 +10,6 @@
 */
 
 import axios from "axios";
-import { type } from "os";
 import * as types from "../actionTypes";
 
 /**
