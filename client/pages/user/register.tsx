@@ -20,11 +20,8 @@ import { Alert } from "./../../components/Alert/Alert";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { SmallSpinner } from "./../../components/Spinner/Spinner";
-import { GetServerSideProps } from "next";
-import { AuthGuard } from "../../services/Auth/AuthGuard";
 
 function Register(props: any) {
-    console.log(props);
     // The state
     const [formData, setFormData] = useState({
         name: "",
@@ -42,10 +39,10 @@ function Register(props: any) {
 
     // Redirect if user is authenticated.
     useEffect(() => {
-        if (props.user) {
+        if (props.isAuthenticated) {
             router.push("/dashboard");
         }
-    }, [props.user]);
+    });
 
     /**
      * Handle input change.
@@ -201,8 +198,3 @@ Register.propTypes = {
     register: PropTypes.func,
 };
 export default connect(mapStateToProps, { register })(Register);
-
-export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
-    const authenticator = new AuthGuard();
-    return authenticator.redirectOnAuthentication(req, res);
-};
