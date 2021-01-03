@@ -10,6 +10,7 @@
 */
 
 import axios from "axios";
+import { request } from "http";
 import * as types from "../actionTypes";
 
 /**
@@ -83,13 +84,13 @@ export const login = (email: string, password: string): any => {
                 });
             }
         } catch (error: any) {
-            if (error.response.status === 422) {
+            if (error.response && error.response.status === 422) {
                 return dispatch({
                     type: types.LOGIN_ERROR,
                     payload: "Email or password are incorrect.",
                 });
             }
-            if (error.response.status === 419) {
+            if (error.response && error.response.status === 419) {
                 return dispatch({
                     type: types.LOGIN_ERROR,
                     payload: "Application access denied.",
@@ -141,7 +142,7 @@ export const register = (
                 dispatch(loadUser());
             }
         } catch (error: any) {
-            if (error.response.status === 422) {
+            if (error.response && error.response.status === 422) {
                 const emailErrorMsg = error.response.data.errors.email[0];
 
                 if (emailErrorMsg) {
@@ -262,6 +263,34 @@ export const resetPassword = (email, password, token) => {
                 success: "",
                 error: "The given data is invalid.",
             };
+        }
+    };
+};
+
+export const verifyEmail = (userID, hash, expires, signature) => {
+    return async (dispatch: CallableFunction) => {
+        try {
+            const requestURL = `/email/verify/${userID}/${hash}?expires=${expires}&signature=${signature}`;
+            //console.log(requestURL);
+            const res = await axios.get(requestURL);
+            if (res.status === 204) {
+                return {
+                    success: true,
+                    error: "",
+                };
+            } else {
+                return {
+                    success: false,
+                    error: "Something went wrong",
+                };
+            }
+        } catch (error) {
+            if (error.response && error.response.data) {
+                return {
+                    success: false,
+                    error: error.response.data.message,
+                };
+            }
         }
     };
 };

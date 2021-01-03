@@ -142,10 +142,15 @@ const Login = (props: any) => {
                         </PrimaryButton>
 
                         {/* Additional links. */}
-                        <div className="w-full flex mt-3 text-blue-500">
+                        <div className="w-full flex justify-between mt-3 text-blue-500">
                             <Link href="/user/register">
                                 <a className="text-xs underline">
                                     No Account yet?
+                                </a>
+                            </Link>
+                            <Link href="/user/password/forgot">
+                                <a className="text-xs underline">
+                                    Forgot password?
                                 </a>
                             </Link>
                         </div>

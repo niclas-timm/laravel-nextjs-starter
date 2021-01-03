@@ -18,4 +18,4 @@ use App\Http\Controllers\Auth\RegisterController;
 //     return $request->user();
 // });
 
-Auth::routes();
+Auth::routes(['verify' => true]);
