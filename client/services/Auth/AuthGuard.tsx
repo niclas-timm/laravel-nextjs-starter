@@ -155,7 +155,12 @@ export class AuthGuard {
              * the API will send a 401 response. If we're on a
              * protected route, redirect to the login page.
              */
-            if (error.response.status === 401 && !isNoProtectedRoute) {
+
+            if (
+                error.response &&
+                error.response.status === 401 &&
+                !isNoProtectedRoute
+            ) {
                 if (pathname === "/user/login") {
                     return { user: false };
                 }

@@ -171,7 +171,7 @@ function Register(props: any) {
 
                         {/* Additional links. */}
                         <div className="w-full flex mt-3 text-blue-500">
-                            <Link href="/user/register">
+                            <Link href="/user/login">
                                 <a className="text-xs underline">
                                     Already have an account?
                                 </a>

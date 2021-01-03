@@ -106,6 +106,19 @@ const auth = (state = initState, action: { type: string; payload: any }) => {
                 authError: "",
                 userLoadedError: "",
             };
+        case types.AUTH_GENERAL_ERROR:
+        case types.RESET_PASSWORD_LINK_SENT:
+            return {
+                ...state,
+                isAuthenticated: false,
+                loading: false,
+                loginLoading: false,
+                user: {},
+                loginError: "",
+                registerError: "",
+                authError: "",
+                userLoadedError: "",
+            };
     }
     return state;
 };

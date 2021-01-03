@@ -1,12 +1,13 @@
 import Link from "next/link";
-import { PrimaryButton } from "./../../components/Button/Button";
+import { PrimaryButton, ToggleButton } from "./../../components/Button/Button";
 import { logout } from "./../../store/auth/authActions";
 import { connect } from "react-redux";
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 
 function Dashboard(props: any) {
     const router = useRouter();
+    const [checked, setChecked] = useState(false);
     useEffect(() => {
         if (!props.isAuthenticated) {
             router.push("/user/login");
@@ -23,6 +24,12 @@ function Dashboard(props: any) {
             >
                 Logout
             </PrimaryButton>
+            <ToggleButton
+                checked={checked}
+                onClick={() => {
+                    setChecked(!checked);
+                }}
+            />
         </>
     );
 }

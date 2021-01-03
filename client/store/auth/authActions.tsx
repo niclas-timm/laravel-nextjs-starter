@@ -177,3 +177,91 @@ export const logout = () => {
         }
     };
 };
+
+/**
+ * Request a password reset link for an account by a given email address.
+ *
+ * If the request is successfull, the user will get a link by email where
+ * he can create a new password.
+ *
+ * @param {string} email
+ *   The email for the account whose password will be reset.
+ *
+ * @return {object}
+ *   Error and success message.
+ */
+export const forgotPassword = (email: string) => {
+    return async (dispatch: CallableFunction) => {
+        try {
+            const res = await axios.post("/password/email", { email });
+
+            // Behaviour on success.
+            if (res.status === 200) {
+                return {
+                    success: res.data.message,
+                    error: "",
+                };
+            }
+        } catch (error) {
+            // Return an error message if the email was not found in the DB.
+            if (error.response.status === 422) {
+                dispatch({
+                    type: types.AUTH_GENERAL_ERROR,
+                });
+                return {
+                    success: "",
+                    error: "Seems like there is no account for that email.",
+                };
+            }
+        }
+    };
+};
+
+/**
+ * Create a new password for a given user.
+ *
+ * @param {string} email
+ *   The email address of the user.
+ * @param {string} password
+ *   The new password.
+ * @param {string} token
+ *   The token. It must have been created beforehand by declaring a forgotten password (see forgotPassword()).
+ *
+ * @return {object}
+ */
+export const resetPassword = (email, password, token) => {
+    return async (dispatch: CallableFunction) => {
+        try {
+            const res = await axios.post("/password/reset", {
+                email,
+                password,
+                token,
+            });
+
+            // Behaviour on success.
+            if (res.status === 200) {
+                return {
+                    success: res.data.message,
+                    error: "",
+                };
+                /**
+                 * No need to dispatch an action here as
+                 * the user will be redirected, which will trigger
+                 * the LOAD_USER actions anyways.
+                 */
+            }
+            return {
+                success: "",
+                error: "The given data was invalid",
+            };
+        } catch (error) {
+            dispatch({
+                type: types.AUTH_GENERAL_ERROR,
+            });
+            return {
+                success: "",
+                error: "The given data is invalid.",
+            };
+        }
+    };
+};

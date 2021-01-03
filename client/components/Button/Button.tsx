@@ -28,3 +28,17 @@ PrimaryButton.propTypes = {
     children: PropTypes.any,
     additionalClasses: PropTypes.string,
 };
+
+export function ToggleButton(props: any) {
+    const outerClasses = `toggle-checkbox flex align-center items-center inline-block rounded-2xl p-1 h-8 w-14 ${
+        props.checked
+            ? "bg-purple-700 justify-end"
+            : "bg-gray-300 justify-start"
+    } cursor-pointer transition-all duration-100 ease-in`;
+    const innerClasses = `rounded-full h-6 w-6 bg-gray-700 transition-all duration-500 ease-in`;
+    return (
+        <div className={outerClasses} onClick={props.onClick}>
+            <div className={innerClasses}></div>
+        </div>
+    );
+}
