@@ -5,10 +5,19 @@ import PropTypes from "prop-types";
 import { AuthGuard } from "./../services/Auth/AuthGuard";
 import { useEffect } from "react";
 import * as types from "./../store/actionTypes";
+import TagManager from "react-gtm-module";
 
 require("./../config/config.tsx");
 
 function MyApp(props: any) {
+    // Initialize Google Tag Manager via react-gtm-module.
+    const tagManagerArgs = {
+        gtmId: process.env.NEXT_PUBLIC_GOOGLE_TAG_MANAGER_ID,
+    };
+    if (process.browser) {
+        TagManager.initialize(tagManagerArgs);
+    }
+
     // Handle current user in redux.
     useEffect(() => {
         // Store current user if we have one.
