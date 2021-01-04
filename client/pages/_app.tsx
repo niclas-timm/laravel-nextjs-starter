@@ -11,11 +11,13 @@ require("./../config/config.tsx");
 
 function MyApp(props: any) {
     // Initialize Google Tag Manager via react-gtm-module.
-    const tagManagerArgs = {
-        gtmId: process.env.NEXT_PUBLIC_GOOGLE_TAG_MANAGER_ID,
-    };
-    if (process.browser) {
-        TagManager.initialize(tagManagerArgs);
+    if (process.env.NEXT_PUBLIC_GOOGLE_TAG_MANAGER_ID) {
+        const tagManagerArgs = {
+            gtmId: process.env.NEXT_PUBLIC_GOOGLE_TAG_MANAGER_ID,
+        };
+        if (process.browser) {
+            TagManager.initialize(tagManagerArgs);
+        }
     }
 
     // Handle current user in redux.
