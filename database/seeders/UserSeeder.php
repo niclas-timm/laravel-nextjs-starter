@@ -16,9 +16,6 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
-        // Create some users with the factory.
-        User::factory()->times(5)->create();
-
         // Create the Admin.
         DB::table('users')->insert([
             'name' => 'Super-Admin',
@@ -30,5 +27,7 @@ class UserSeeder extends Seeder
             'remember_token' => Str::random(10),
             'role' => 'admin'
         ]);
+        // Create some users with the factory.
+        User::factory()->times(5)->create();
     }
 }
