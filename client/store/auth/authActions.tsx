@@ -267,18 +267,42 @@ export const resetPassword = (email, password, token) => {
     };
 };
 
+/**
+ * Verify the email of a user.
+ *
+ * @param {string} userID
+ *   The id of the user.
+ * @param {string} hash
+ *   A hash value.
+ * @param {string} expires
+ *   The expiration date.
+ * @param {string} signature
+ *   The signature.
+ *
+ * @return {object}
+ *   Includes success and error keys. Their values will be set depending on verification outcome.
+ */
 export const verifyEmail = (userID, hash, expires, signature) => {
     return async (dispatch: CallableFunction) => {
         try {
+            /**
+             * Construct the url the api expects.
+             * It must be /email/verify/USERID/HASH?expires=EXPIRES&signature=SIGNATURE
+             */
             const requestURL = `/email/verify/${userID}/${hash}?expires=${expires}&signature=${signature}`;
-            //console.log(requestURL);
+
+            // Send req to api.
             const res = await axios.get(requestURL);
+
+            // Success.
             if (res.status === 204) {
                 return {
                     success: true,
                     error: "",
                 };
-            } else {
+            }
+            // Error.
+            else {
                 return {
                     success: false,
                     error: "Something went wrong",
@@ -289,6 +313,11 @@ export const verifyEmail = (userID, hash, expires, signature) => {
                 return {
                     success: false,
                     error: error.response.data.message,
+                };
+            } else {
+                return {
+                    success: false,
+                    error: "Sorry, something went wrong.",
                 };
             }
         }
