@@ -9,10 +9,10 @@
 |
 */
 import axios from "axios";
-
+console.log(process.env.NEXT_PUBLIC_API_HOST_URL);
 // Configure axios in order to be able to make api requests to the laravel backend.
 axios.defaults.withCredentials = true;
-axios.defaults.baseURL = "http://localhost:8001";
+axios.defaults.baseURL = process.env.NEXT_PUBLIC_API_HOST_URL;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,4 +26,4 @@ axios.defaults.baseURL = "http://localhost:8001";
 | will lead to a redirect if the user is not authenticated.
 |
 */
-export const protectedRoutes = ["/dashboard"];
+export const protectedRoutes = [process.env.NEXT_PUBLIC_USER_HOME_ROUTE];

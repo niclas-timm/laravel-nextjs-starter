@@ -37,10 +37,10 @@ function Register(props: any) {
     // The router object used for redirecting after login.
     const router = useRouter();
 
-    // Redirect if user is authenticated.
+    // Redirect to user home route if user is authenticated.
     useEffect(() => {
         if (props.isAuthenticated) {
-            router.push("/dashboard");
+            router.push(process.env.NEXT_PUBLIC_USER_HOME_ROUTE);
         }
     });
 

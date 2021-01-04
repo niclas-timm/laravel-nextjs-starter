@@ -76,9 +76,9 @@ function ResetPassword(props: any) {
             token
         );
 
-        // Redirect on successful password reset.
+        // Redirect to home route on successful password reset.
         if (res.success) {
-            router.push("/dashboard");
+            router.push(process.env.NEXT_PUBLIC_USER_HOME_ROUTE);
         }
 
         // Display danger notification if something went wrong.

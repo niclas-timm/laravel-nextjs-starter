@@ -40,9 +40,9 @@ function VerifyPassword(props: any) {
                 error: "",
             });
 
-            // Redirect to dashboard after 3 seconds.
+            // Redirect to Home route of the user after 3 seconds.
             setTimeout(() => {
-                router.push("/dashboard");
+                router.push(process.env.NEXT_PUBLIC_USER_HOME_ROUTE);
             }, 3000);
             return;
         }
