@@ -6,7 +6,7 @@ import { AuthGuard } from "@/services/Auth/AuthGuard";
 import { useEffect } from "react";
 import * as types from "@/store/actionTypes";
 import TagManager from "react-gtm-module";
-import { Navbar } from "@/components/Navigation/Navbar";
+import { Navbar, MegaMenu } from "@/components/Navigation/Navbar";
 
 require("./../config/config.tsx");
 
