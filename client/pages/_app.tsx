@@ -1,11 +1,12 @@
 import "../styles/globals.css";
-import store from "./../store/store";
+import store from "@/store/store";
 import { Provider } from "react-redux";
 import PropTypes from "prop-types";
-import { AuthGuard } from "./../services/Auth/AuthGuard";
+import { AuthGuard } from "@/services/Auth/AuthGuard";
 import { useEffect } from "react";
-import * as types from "./../store/actionTypes";
+import * as types from "@/store/actionTypes";
 import TagManager from "react-gtm-module";
+import { Navbar } from "@/components/Navigation/Navbar";
 
 require("./../config/config.tsx");
 
@@ -38,6 +39,7 @@ function MyApp(props: any) {
 
     return (
         <Provider store={store}>
+            <Navbar />
             <props.Component {...props.pageProps} />;
         </Provider>
     );

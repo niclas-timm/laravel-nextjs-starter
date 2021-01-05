@@ -26,4 +26,18 @@ module.exports = {
     rules: {
         "react/react-in-jsx-scope": "off",
     },
+    settings: {
+        settings: {
+            "import/resolver": {
+                alias: {
+                    map: [
+                        ["@/components", "./components"],
+                        ["@/store", "./store"],
+                        ["@/services", "./services"],
+                    ],
+                    extensions: [".js", ".jsx", ".ts", ".tsx"],
+                },
+            },
+        },
+    },
 };
