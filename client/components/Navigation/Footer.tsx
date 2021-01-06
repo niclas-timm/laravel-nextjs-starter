@@ -73,9 +73,43 @@ export function AdvancedFooter() {
     });
 
     return (
-        <footer className="w-screen py-4 px-2 bg-purple-50">
+        <footer className=" advanced-footer w-screen py-4 px-2 bg-purple-50">
             <div className=" container mx-auto w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-28">
                 {footerCols}
+            </div>
+        </footer>
+    );
+}
+
+export function SimpleFooter() {
+    const currentYear = new Date().getFullYear();
+
+    /**
+     * All links that will be displayed in the footer.
+     * Customize to your requirements.
+     */
+    const footerLinks = [
+        { title: "Imprint", link: "/imprint" },
+        { title: "Privacy Statement", link: "/privacy" },
+    ];
+
+    // A FooterLink component for every given link.
+    const footerItems = footerLinks.map((link) => {
+        return (
+            <FooterLink
+                key={link.title}
+                title={link.title}
+                link={link.link}
+                marginLeft={true}
+            />
+        );
+    });
+
+    return (
+        <footer className="simple-footer w-screen py-4 px-2 bg-purple-50">
+            <div className="w-full flex justify-between items-center">
+                <span className="text-purple-500">Copyright {currentYear}</span>
+                <div className="flex items-center">{footerItems}</div>
             </div>
         </footer>
     );
@@ -87,10 +121,14 @@ export function AdvancedFooter() {
  * @param {object} props
  *   The props, including title and link.
  */
-export function FooterLink({ title, link }) {
+export function FooterLink({ title, link, marginLeft }) {
     return (
         <Link href={link}>
-            <h5 className="text-purple-500 hover:text-purple-700 hover:underline">
+            <h5
+                className={`text-purple-500 hover:text-purple-700 hover:underline ${
+                    marginLeft ? "ml-4" : ""
+                }`}
+            >
                 {title}
             </h5>
         </Link>
@@ -99,4 +137,5 @@ export function FooterLink({ title, link }) {
 FooterLink.propTypes = {
     title: PropTypes.string.isRequired,
     link: PropTypes.string.isRequired,
+    marginLeft: PropTypes.bool,
 };
