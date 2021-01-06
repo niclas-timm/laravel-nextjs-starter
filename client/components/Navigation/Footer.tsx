@@ -125,7 +125,7 @@ export function FooterLink({ title, link, marginLeft }) {
     return (
         <Link href={link}>
             <h5
-                className={`text-purple-500 hover:text-purple-700 hover:underline ${
+                className={`text-purple-500 hover:text-purple-700 hover:underline cursor-pointer ${
                     marginLeft ? "ml-4" : ""
                 }`}
             >
