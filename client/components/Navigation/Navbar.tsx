@@ -12,35 +12,6 @@ import Link from "next/link";
 import { useState } from "react";
 import PropTypes from "prop-types";
 
-export function MenuBar({ onClick }) {
-    return (
-        <nav className="w-screen py-3 px-2 flex items-center justify-between">
-            <Link href="/">
-                <a>Blog</a>
-            </Link>
-            <div className="h-full cursor-pointer" onClick={onClick}>
-                <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                    className="h-full w-8"
-                >
-                    <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth="2"
-                        d="M4 6h16M4 12h16m-7 6h7"
-                    />
-                </svg>
-            </div>
-        </nav>
-    );
-}
-MenuBar.propTypes = {
-    onClick: PropTypes.func.isRequired,
-};
-
 /**
  * The default nabvar.
  */
@@ -162,6 +133,74 @@ export function MegaMenu() {
     );
 }
 
+export function TraditionalNavbar() {
+    const [showSidebar, toggleSidebar] = useState(false);
+
+    const toggleNavbar = () => {
+        toggleSidebar(!showSidebar);
+    };
+
+    return (
+        <nav
+            className={`w-screen py-3 flex-col md:flex-row px-2 flex items-center justify-between`}
+        >
+            <div className="w-full flex justify-between items-center">
+                <Link href="/">
+                    <a>Blog</a>
+                </Link>
+                <div
+                    className="h-full cursor-pointer md:hidden"
+                    onClick={toggleNavbar}
+                >
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                        className="h-full w-8"
+                    >
+                        <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth="2"
+                            d="M4 6h16M4 12h16m-7 6h7"
+                        />
+                    </svg>
+                </div>
+            </div>
+
+            <div
+                className={`nav-items flex flex-col md:flex-row align-center ${
+                    showSidebar
+                        ? "bg-purple-50 w-full text-center py-3"
+                        : "h-0 overflow-hidden"
+                }`}
+            >
+                <TraditionalNavbarLink
+                    title="Home"
+                    link="/"
+                    onClick={toggleNavbar}
+                />
+                <TraditionalNavbarLink
+                    title="Docs"
+                    link="/docs"
+                    onClick={toggleNavbar}
+                />
+                <TraditionalNavbarLink
+                    title="Blog"
+                    link="/blog"
+                    onClick={toggleNavbar}
+                />
+                <TraditionalNavbarLink
+                    title="Contact"
+                    link="/contact"
+                    onClick={toggleNavbar}
+                />
+            </div>
+        </nav>
+    );
+}
+
 /**
  * A Link that can be displayed in the menu.
  * @param {object} props
@@ -182,4 +221,52 @@ NavbarMenuLink.propTypes = {
     title: PropTypes.string.isRequired,
     link: PropTypes.string.isRequired,
     onClick: PropTypes.func,
+};
+
+export function TraditionalNavbarLink({ title, link, onClick }) {
+    return (
+        <Link href={link}>
+            <a
+                className="text-lg text-purple-500 hover:text-purple-700 hover:underline ml-8 transition"
+                onClick={onClick}
+            >
+                {title}
+            </a>
+        </Link>
+    );
+}
+TraditionalNavbarLink.propTypes = {
+    title: PropTypes.string.isRequired,
+    link: PropTypes.string.isRequired,
+    onClick: PropTypes.func,
+};
+
+// The horizontal menu bar.
+export function MenuBar({ onClick }) {
+    return (
+        <nav className="w-screen py-3 px-2 flex items-center justify-between bg-purple-50">
+            <Link href="/">
+                <a>Blog</a>
+            </Link>
+            <div className="h-full cursor-pointer" onClick={onClick}>
+                <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                    className="h-full w-8"
+                >
+                    <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth="2"
+                        d="M4 6h16M4 12h16m-7 6h7"
+                    />
+                </svg>
+            </div>
+        </nav>
+    );
+}
+MenuBar.propTypes = {
+    onClick: PropTypes.func.isRequired,
 };

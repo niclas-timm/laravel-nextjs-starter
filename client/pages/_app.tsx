@@ -6,7 +6,8 @@ import { AuthGuard } from "@/services/Auth/AuthGuard";
 import { useEffect } from "react";
 import * as types from "@/store/actionTypes";
 import TagManager from "react-gtm-module";
-import { Navbar, MegaMenu } from "@/components/Navigation/Navbar";
+import { Navbar, TraditionalNavbar } from "@/components/Navigation/Navbar";
+import { AdvancedFooter } from "@/components/Navigation/Footer";
 
 require("./../config/config.tsx");
 
@@ -41,6 +42,7 @@ function MyApp(props: any) {
         <Provider store={store}>
             <Navbar />
             <props.Component {...props.pageProps} />;
+            <AdvancedFooter />
         </Provider>
     );
 }
