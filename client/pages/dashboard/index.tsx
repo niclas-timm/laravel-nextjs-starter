@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { PrimaryButton, ToggleButton } from "./../../components/Button/Button";
+import { PrimaryButton } from "./../../components/Button/Button";
 import { logout } from "./../../store/auth/authActions";
 import { connect } from "react-redux";
 import { useState, useEffect } from "react";
@@ -24,12 +24,6 @@ function Dashboard(props: any) {
             >
                 Logout
             </PrimaryButton>
-            <ToggleButton
-                checked={checked}
-                onClick={() => {
-                    setChecked(!checked);
-                }}
-            />
         </>
     );
 }

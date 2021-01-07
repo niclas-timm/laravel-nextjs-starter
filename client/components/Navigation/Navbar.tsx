@@ -244,7 +244,7 @@ TraditionalNavbarLink.propTypes = {
 // The horizontal menu bar.
 export function MenuBar({ onClick }) {
     return (
-        <nav className="w-screen py-3 px-2 flex items-center justify-between bg-purple-50">
+        <nav className="w-screen py-3 px-2 flex sticky top-0 items-center justify-between bg-purple-50 z-40">
             <Link href="/">
                 <a>Blog</a>
             </Link>

@@ -29,7 +29,12 @@ PrimaryButton.propTypes = {
     additionalClasses: PropTypes.string,
 };
 
-export function ToggleButton(props: any) {
+/**
+ * A Swiper-Like button that can be used to indicate an on and off state.
+ *
+ * @param {object} props
+ */
+export function SwiperButton(props: any) {
     const outerClasses = `toggle-checkbox flex align-center items-center inline-block rounded-2xl p-1 h-8 w-14 ${
         props.checked
             ? "bg-purple-700 justify-end"
@@ -42,3 +47,51 @@ export function ToggleButton(props: any) {
         </div>
     );
 }
+
+/**
+ * A circe round button.
+ * @param {object} props
+ */
+export function CircleButton({ children, onClick, additionalClasses }) {
+    const classList = `${additionalClasses} mb-3 mr-3 rounded-full p-2 bg-purple-500 text-pruple-700 focus:outline-none cursour-pointer text-white hover:bg-purple-700`;
+    return (
+        <button className={classList} onClick={onClick}>
+            {children}
+        </button>
+    );
+}
+CircleButton.propTypes = {
+    children: PropTypes.element.isRequired,
+    onClick: PropTypes.func,
+    additionalClasses: PropTypes.string,
+};
+
+/**
+ * A circle round button with a burger menu inside.
+ *
+ * @param {object} props
+ */
+export function BurgerCircleButton({ onClick, additionalClasses }) {
+    return (
+        <CircleButton onClick={onClick} additionalClasses={additionalClasses}>
+            <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                className="w-8 h-8"
+            >
+                <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M4 8h16M4 16h16"
+                />
+            </svg>
+        </CircleButton>
+    );
+}
+BurgerCircleButton.propTypes = {
+    onClick: PropTypes.func,
+    additionalClasses: PropTypes.string,
+};

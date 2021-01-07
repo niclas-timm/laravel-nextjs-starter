@@ -6,9 +6,10 @@ import { AuthGuard } from "@/services/Auth/AuthGuard";
 import { useEffect } from "react";
 import * as types from "@/store/actionTypes";
 import TagManager from "react-gtm-module";
-import { Navbar, TraditionalNavbar } from "@/components/Navigation/Navbar";
+import { Navbar } from "@/components/Navigation/Navbar";
 import { AdvancedFooter } from "@/components/Navigation/Footer";
-
+import { useRouter } from "next/router";
+import { protectedRoutes } from "./../config/config";
 require("./../config/config.tsx");
 
 function MyApp(props: any) {
@@ -21,6 +22,12 @@ function MyApp(props: any) {
             TagManager.initialize(tagManagerArgs);
         }
     }
+
+    const router = useRouter();
+    // Check if we're on a protected route.
+    const isNoProtectedRoute = protectedRoutes.every((route) => {
+        return !router.pathname.startsWith(route);
+    });
 
     // Handle current user in redux.
     useEffect(() => {
@@ -42,7 +49,7 @@ function MyApp(props: any) {
         <Provider store={store}>
             <Navbar />
             <props.Component {...props.pageProps} />;
-            <AdvancedFooter />
+            {isNoProtectedRoute && <AdvancedFooter />}
         </Provider>
     );
 }
