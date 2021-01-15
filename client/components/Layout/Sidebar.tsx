@@ -9,9 +9,8 @@
 |
 */
 import PropTypes from "prop-types";
+import { BurgerCircleButton } from "./../Button/Button";
 import tailwindConfig from "./../../tailwind.config";
-import { useState } from "react";
-import { BurgerCircleButton } from "@/components/Button/button";
 
 /**
  * A page layout that includes a fixed responsive sidebar
@@ -21,39 +20,17 @@ import { BurgerCircleButton } from "@/components/Button/button";
  *
  * @param {object} props
  */
-export function SidebarLayout({ sidebarItems, children }) {
-    // Initially, the sidebar will not be shown on mobile breakpoints.
-    const [showSidebar, setShowSidebar] = useState(false);
-
-    // Get the breaktpoints from the tailwind configuration and convert them to numbers.
-    const breakpoints = {
-        sm: parseInt(tailwindConfig.theme.screens.sm.replace("px", "")),
-        md: parseInt(tailwindConfig.theme.screens.md.replace("px", "")),
-        lg: parseInt(tailwindConfig.theme.screens.lg.replace("px", "")),
-        xl: parseInt(tailwindConfig.theme.screens.xl.replace("px", "")),
-    };
-
-    /**
-     * Toggle the sidebar state.
-     */
-    const toggleSidebar = () => {
-        /**
-         * This function should not be called when we're on desktop,
-         * since the button for toggling is hidden on desktop. But
-         * if the function gets called anyways that we only toggle the
-         * sidebar state on mobile breakpoints.
-         */
-        const windowWidth = window.innerWidth;
-        if (windowWidth >= breakpoints.lg) {
-            return setShowSidebar(true);
-        }
-        setShowSidebar(!showSidebar);
-    };
-
+export function SidebarLayout({
+    sidebarItems,
+    children,
+    showSidebar,
+    onClickCircleIcon,
+}) {
     // Set the class list of the sidebar. If the sidebar should not be shown, set the left property to -100%.
-    const asideClassList = `w-10/12 md:w-1/3 lg:w-72 fixed h-screen lg:left-0 shadow-lg bg-white flex-grow z-50 transition-all ${
+    const asideClassList = `w-10/12 md:w-1/3 lg:w-72 fixed h-screen lg:left-0 shadow-lg bg-white flex-grow z-50 transition-all pb-12 ${
         showSidebar ? "" : "-left-full"
     }`;
+
     return (
         <div className="w-screen min-h-screen flex relative">
             {/* The sidebar menu on the left side. */}
@@ -72,7 +49,7 @@ export function SidebarLayout({ sidebarItems, children }) {
 
             {/* The toggle button that gets show only on mobile. */}
             <BurgerCircleButton
-                onClick={toggleSidebar}
+                onClick={onClickCircleIcon}
                 additionalClasses="fixed lg:hidden bottom-0 right-0"
             />
         </div>
@@ -81,4 +58,49 @@ export function SidebarLayout({ sidebarItems, children }) {
 SidebarLayout.propTypes = {
     sidebarItems: PropTypes.element.isRequired,
     children: PropTypes.element.isRequired,
+    showSidebar: PropTypes.bool.isRequired,
+    onClickCircleIcon: PropTypes.func.isRequired,
+};
+
+export function SidebarPanel({ title, children }) {
+    return (
+        <div className="w-full sidebar-panel  bg-white mb-4">
+            <div className="w-full text-lg text-black">{title}</div>
+            <div className="w-full pl-3">{children}</div>
+        </div>
+    );
+}
+SidebarPanel.propTypes = {
+    title: PropTypes.string.isRequired,
+    children: PropTypes.any.isRequired,
+};
+
+/**
+ * Helper function that can be used to toggle the sidebar.
+ *
+ * @param {boolean} currentSidebarState
+ *   Determines if the sidebar is currently shown or not.
+ *
+ * @return {boolean}
+ */
+export const toggleSidebar = (currentSidebarState: boolean): boolean => {
+    // Get the breakpoints from Tailwind config.
+    const breakpoints = {
+        sm: parseInt(tailwindConfig.theme.screens.sm.replace("px", "")),
+        md: parseInt(tailwindConfig.theme.screens.md.replace("px", "")),
+        lg: parseInt(tailwindConfig.theme.screens.lg.replace("px", "")),
+        xl: parseInt(tailwindConfig.theme.screens.xl.replace("px", "")),
+    };
+
+    /**
+     * This function should not be called when we're on desktop,
+     * since the button for toggling is hidden on desktop. But
+     * if the function gets called anyways that we only toggle the
+     * sidebar state on mobile breakpoints.
+     */
+    const windowWidth = window.innerWidth;
+    if (windowWidth >= breakpoints.lg) {
+        return true;
+    }
+    return !currentSidebarState;
 };

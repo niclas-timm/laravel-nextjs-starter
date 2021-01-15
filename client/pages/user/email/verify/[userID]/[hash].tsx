@@ -88,9 +88,8 @@ function VerifyPassword(props: any) {
             <div className="absolute w-full md:w-3/5 lg:w-1/3 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
                 {/* Card */}
                 <Card
-                    verticalAlign="center"
-                    horizontalAlign="center"
-                    additionalClasses="bg-gray-100"
+                    additionalInnerClasses="justify-center items-center"
+                    additionalWrapperClasses="bg-gray-100"
                 >
                     <>
                         {/* Header */}

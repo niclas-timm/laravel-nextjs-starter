@@ -10,13 +10,13 @@
 
 import PropTypes from "prop-types";
 
-export function Alert(props: any) {
+export function Alert({ type, children }) {
     // Determine the classes of the alert depending ong the type given as a prop.
     const alertType = () => {
-        switch (props.type) {
+        switch (type) {
             case "danger":
                 return "bg-red-300 text-red-500";
-            case "alert":
+            case "warning":
                 return "bg-yellow-300 text-yellow-500";
             case "success":
                 return "bg-green-300 text-green-500";
@@ -27,7 +27,7 @@ export function Alert(props: any) {
 
     const alertTypeClasses = alertType();
     const classes = `w-full rounded flex justify-center items-center px-2 py-1 ${alertTypeClasses}`;
-    return <div className={classes}>{props.children}</div>;
+    return <div className={classes}>{children}</div>;
 }
 Alert.propTypes = {
     children: PropTypes.any,

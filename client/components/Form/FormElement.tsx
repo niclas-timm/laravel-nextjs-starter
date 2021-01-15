@@ -61,11 +61,15 @@ export function TextArea(props: any) {
                 placeholder={props.placeholder}
                 onChange={props.onChange}
                 cols={50}
-                className="w-full p-1 rounded bg-white focus:outline-none focus:ring-2 focus:ring-purple-600 border border-transparent focus:border-transparent"
+                className={`w-full p-1 rounded bg-white focus:outline-none focus:ring-2 focus:ring-purple-600 border border-transparent focus:border-transparent ${
+                    props.errorMsg ? "border-red-500" : "border-transparent"
+                } `}
             >
                 {props.value}
             </textarea>
-            {props.errorMsg && <div>{props.errorMsg}</div>}
+            {props.errorMsg && (
+                <div className="text-red-500">{props.errorMsg}</div>
+            )}
         </div>
     );
 }
