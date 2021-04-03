@@ -1,0 +1,13 @@
+#!/bin/bash
+
+i=1;
+j=$#;
+
+# Make sure only one argument is passed.
+if [ $j -gt 0 ]
+then
+    echo "No arguments allowed.";
+    exit;
+fi
+
+docker-compose down --remove-orphans;

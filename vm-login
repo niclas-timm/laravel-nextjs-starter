@@ -1,0 +1,4 @@
+#!/bin/bash
+
+# Use this script in order to log in to the app container with a zsh shell.
+docker-compose exec app /bin/zsh

@@ -1,0 +1,25 @@
+#!/bin/bash
+
+i=1;
+j=$#;
+
+# Make sure only one argument is passed.
+if [ $j -gt 1 ]
+then
+    echo "Too many arguments. Only '--build' allowed in order to rebuild the VM.";
+    exit;
+fi
+
+# If the '--build' argument is passed, rebuild the VM.
+if [ "$1" = "--build" ]
+then
+    docker-compose up --build -d;
+# If the argument is empty, regularly start the VM.
+elif [ -z $1 ]
+then
+    docker-compose up -d;
+
+# If something else is given as the argument, abort the script.
+else
+    echo "Incorrect argument. Either provide no arguments or '--build' as the single argument in order to rebuild the VM."
+fi
