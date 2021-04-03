@@ -1,15 +1,21 @@
-import { useState, setState } from "react";
-import { Card } from "../../../components/Card/Card";
-import { TextInput } from "../../../components/Form/FormElement";
-import { H1 } from "../../../components/Typography/Headers";
-import { UserValidator } from "../../../services/UserValidator";
-import { PrimaryButton } from "../../../components/Button/Button";
-import { connect } from "react-redux";
-import { forgotPassword } from "../../../store/auth/authActions";
-import { Alert } from "./../../../components/Alert/Alert";
+import React, {ReactElement, useState} from "react";
+import {Card} from "@/components/Card/Card";
+import {TextInput} from "@/components/Form/FormElement";
+import {H1} from "@/components/Typography/Headers";
+import {PrimaryButton} from "@/components/Button/Button";
+import {connect} from "react-redux";
+import {forgotPassword} from "@/store/auth/authActions";
+import {Alert} from "@/components/Alert/Alert";
 
-function ForgotPassword(props: any) {
-    const [formData, setFormData] = useState({
+function ForgotPassword(props: any): ReactElement {
+    const [formData, setFormData] = useState<{
+        email: string;
+        emailError: string;
+        notificationAlert: {
+            type: string;
+            msg: string;
+        };
+    }>({
         email: "",
         emailError: "",
         notificationAlert: {
@@ -18,7 +24,7 @@ function ForgotPassword(props: any) {
         },
     });
 
-    const handleInputChange = (e: React.FormEvent<HTMLInputElement>) => {
+    const handleInputChange = (e: React.FormEvent<HTMLInputElement>): void => {
         setFormData({
             ...formData,
             [e.currentTarget.name]: e.currentTarget.value,
@@ -26,17 +32,12 @@ function ForgotPassword(props: any) {
         });
     };
 
-    const submit = async () => {
-        // const userValidator = new UserValidator();
-        // const isEmailValid = userValidator.validateEmail(formData.email);
-        // if (!isEmailValid) {
-        //     setFormData({
-        //         ...formData,
-        //         emailError: "Please enter a valid email address.",
-        //     });
-        //     return;
-        // }
-        const res = await props.forgotPassword(formData.email);
+    /**
+     * The submit action.
+     */
+    const submit = async (): Promise<void> => {
+
+        const res: any = await props.forgotPassword(formData.email);
         if (res.error) {
             setFormData({
                 ...formData,
@@ -54,11 +55,13 @@ function ForgotPassword(props: any) {
                 },
             });
         }
-        console.log(res);
     };
+
+    // Returns statement.
     return (
         <div className="w-screen h-screen relative">
-            <div className="absolute w-full md:w-3/5 lg:w-1/3 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+            <div
+                className="absolute w-full md:w-3/5 lg:w-1/3 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
                 <Card
                     additionalInnerClasses="justify-center items-center"
                     additionalWrapperClasses="bg-gray-100"
@@ -103,4 +106,5 @@ function ForgotPassword(props: any) {
         </div>
     );
 }
-export default connect(null, { forgotPassword })(ForgotPassword);
+
+export default connect(null, {forgotPassword})(ForgotPassword);

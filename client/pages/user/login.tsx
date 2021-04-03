@@ -7,25 +7,30 @@
 |
 */
 
-import { useState, useEffect } from "react";
-import { connect } from "react-redux";
+import React, {ReactElement, useEffect, useState} from "react";
+import {connect} from "react-redux";
 import PropTypes from "prop-types";
-import { login } from "./../../store/auth/authActions";
-import { UserValidator } from "./../../services/UserValidator";
-import { Card } from "./../../components/Card/Card";
-import { TextInput } from "./../../components/Form/FormElement";
-import { H1 } from "./../../components/Typography/Headers";
-import { PrimaryButton } from "./../../components/Button/Button";
-import { Alert } from "./../../components/Alert/Alert";
-import { useRouter } from "next/router";
+import {login} from "@/store/auth/authActions";
+import {UserValidator} from "@/services/UserValidator";
+import {Card} from "@/components/Card/Card";
+import {TextInput} from "@/components/Form/FormElement";
+import {H1} from "@/components/Typography/Headers";
+import {PrimaryButton} from "@/components/Button/Button";
+import {Alert} from "@/components/Alert/Alert";
+import {useRouter} from "next/router";
 import Link from "next/link";
-import { SmallSpinner } from "./../../components/Spinner/Spinner";
+import {SmallSpinner} from "@/components/Spinner/Spinner";
 
-const Login = (props: any) => {
+const Login = (props: any): ReactElement => {
     /**
      * The state.
      */
-    const [formData, setFormData] = useState({
+    const [formData, setFormData] = useState<{
+        email: string;
+        password: string;
+        emailError: string;
+        passwordError: string;
+    }>({
         email: "",
         password: "",
         emailError: "",
@@ -48,7 +53,7 @@ const Login = (props: any) => {
      * @param {object} e
      *   The event object.
      */
-    const handleInputChange = (e: React.FormEvent<HTMLInputElement>) => {
+    const handleInputChange = (e: React.FormEvent<HTMLInputElement>): ReactElement => {
         setFormData({
             ...formData,
             [e.currentTarget.name]: e.currentTarget.value,
@@ -60,12 +65,12 @@ const Login = (props: any) => {
     /**
      * Submit the form.
      */
-    const submit = () => {
-        const userValidator = new UserValidator();
-        const { email, password } = formData;
+    const submit = (): Promise<void> => {
+        const userValidator: UserValidator = new UserValidator();
+        const {email, password} = formData;
 
         // Check for valid email address.
-        const isEmailValid = userValidator.validateEmail(email);
+        const isEmailValid: boolean = userValidator.validateEmail(email);
         if (!isEmailValid) {
             setFormData({
                 ...formData,
@@ -87,12 +92,11 @@ const Login = (props: any) => {
         props.login(email, password);
     };
 
-    /**
-     * The Return statement. Responsible for rendering the markup.
-     */
+    // Return statement.
     return (
         <div className="w-screen h-screen relative">
-            <div className="absolute w-full md:w-3/5 lg:w-1/3 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+            <div
+                className="absolute w-full md:w-3/5 lg:w-1/3 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
                 <Card
                     additionalInnerClasses="justify-center items-center"
                     additionalWrapperClasses="bg-gray-100"
@@ -136,7 +140,7 @@ const Login = (props: any) => {
                                 submit();
                             }}
                         >
-                            <SmallSpinner show={props.loading} />
+                            <SmallSpinner show={props.loading}/>
                             Login
                         </PrimaryButton>
 
@@ -173,4 +177,4 @@ Login.propTypes = {
     login: PropTypes.func,
 };
 
-export default connect(mapStateToProps, { login })(Login);
+export default connect(mapStateToProps, {login})(Login);

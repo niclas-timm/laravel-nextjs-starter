@@ -8,6 +8,7 @@
 */
 
 import PropTypes from "prop-types";
+import {ReactElement} from "react";
 
 /**
  * The Primary Button. Primarily used for CTAs.
@@ -15,14 +16,15 @@ import PropTypes from "prop-types";
  * @param {object} props
  *   The props object.
  */
-export function PrimaryButton(props: any) {
-    const classes = `w-full flex items-center justify-center px-8 py-2 border border-transparent text-base font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 md:text-lg md:px-3 ${props.additionalClasses}`;
+export function PrimaryButton(props: any): ReactElement {
+    const classes: string = `w-full flex items-center justify-center px-8 py-2 border border-transparent text-base font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 md:text-lg md:px-3 ${props.additionalClasses}`;
     return (
         <button type="button" className={classes} onClick={props.onClick}>
             {props.children}
         </button>
     );
 }
+
 PrimaryButton.propTypes = {
     onClick: PropTypes.func,
     children: PropTypes.any,
@@ -52,7 +54,7 @@ export function SwiperButton(props: any) {
  * A circe round button.
  * @param {object} props
  */
-export function CircleButton({ children, onClick, additionalClasses }) {
+export function CircleButton({children, onClick, additionalClasses}) {
     const classList = `${additionalClasses} mb-3 mr-3 rounded-full p-2 bg-purple-500 text-pruple-700 focus:outline-none cursour-pointer text-white hover:bg-purple-700`;
     return (
         <button className={classList} onClick={onClick}>
@@ -60,6 +62,7 @@ export function CircleButton({ children, onClick, additionalClasses }) {
         </button>
     );
 }
+
 CircleButton.propTypes = {
     children: PropTypes.element.isRequired,
     onClick: PropTypes.func,
@@ -71,7 +74,7 @@ CircleButton.propTypes = {
  *
  * @param {object} props
  */
-export function BurgerCircleButton({ onClick, additionalClasses }) {
+export function BurgerCircleButton({onClick, additionalClasses}) {
     return (
         <CircleButton onClick={onClick} additionalClasses={additionalClasses}>
             <svg
@@ -91,6 +94,7 @@ export function BurgerCircleButton({ onClick, additionalClasses }) {
         </CircleButton>
     );
 }
+
 BurgerCircleButton.propTypes = {
     onClick: PropTypes.func,
     additionalClasses: PropTypes.string,

@@ -7,31 +7,31 @@
 | deleting the others to keep you javascript bundle size as small as possible.
 |
 */
-
 import Link from "next/link";
 import PropTypes from "prop-types";
+import {ReactElement} from "react";
 
 /**
  * Grid layout. Defaults to three colums per row.
  */
-export function AdvancedFooter() {
+export function AdvancedFooter(): ReactElement {
     // Customize to your needs. The footer ui will be composed of this data.
-    const footerData = [
+    const footerData: { headline: string, content: { title: string, link: string }[] }[] = [
         // First col.
         {
             headline: "Links",
             content: [
-                { title: "Home", link: "/" },
-                { title: "Docs", link: "/docs" },
-                { title: "Blog", link: "/blog" },
-                { title: "Contact", link: "/contact" },
+                {title: "Home", link: "/"},
+                {title: "Docs", link: "/docs"},
+                {title: "Blog", link: "/blog"},
+                {title: "Contact", link: "/contact"},
             ],
         },
         // Second col.
         {
             headline: "Social Media",
             content: [
-                { title: "Twitter", link: "https://twitter.com/niclas_timm" },
+                {title: "Twitter", link: "https://twitter.com/niclas_timm"},
                 {
                     title: "GitHub",
                     link:
@@ -43,8 +43,8 @@ export function AdvancedFooter() {
         {
             headline: "Legal",
             content: [
-                { title: "Privacy", link: "/privacy" },
-                { title: "Imprint", link: "/imprint" },
+                {title: "Privacy", link: "/privacy"},
+                {title: "Imprint", link: "/imprint"},
             ],
         },
     ];
@@ -54,7 +54,7 @@ export function AdvancedFooter() {
      * return a new div with a headline and as many links as defined
      * in the .content of the currently mapped over object.
      */
-    const footerCols = footerData.map((element) => {
+    const footerCols: JSX.Element[] = footerData.map((element) => {
         return (
             <div key={element.headline}>
                 <h4 className="text-lg">{element.headline}</h4>
@@ -81,20 +81,25 @@ export function AdvancedFooter() {
     );
 }
 
-export function SimpleFooter() {
-    const currentYear = new Date().getFullYear();
+/**
+ * A simple footer component.
+ *
+ * @return ReactElement
+ */
+export function SimpleFooter(): ReactElement {
+    const currentYear: number = new Date().getFullYear();
 
     /**
      * All links that will be displayed in the footer.
      * Customize to your requirements.
      */
     const footerLinks = [
-        { title: "Imprint", link: "/imprint" },
-        { title: "Privacy Statement", link: "/privacy" },
+        {title: "Imprint", link: "/imprint"},
+        {title: "Privacy Statement", link: "/privacy"},
     ];
 
     // A FooterLink component for every given link.
-    const footerItems = footerLinks.map((link) => {
+    const footerItems: ReactElement[] = footerLinks.map((link) => {
         return (
             <FooterLink
                 key={link.title}
@@ -105,6 +110,7 @@ export function SimpleFooter() {
         );
     });
 
+    // Return statement.
     return (
         <footer className="simple-footer w-screen py-4 px-2 bg-purple-50">
             <div className="w-full flex justify-between items-center">
@@ -121,7 +127,7 @@ export function SimpleFooter() {
  * @param {object} props
  *   The props, including title and link.
  */
-export function FooterLink({ title, link, marginLeft }) {
+export function FooterLink({title, link, marginLeft}): ReactElement {
     return (
         <Link href={link}>
             <h5
@@ -134,6 +140,7 @@ export function FooterLink({ title, link, marginLeft }) {
         </Link>
     );
 }
+
 FooterLink.propTypes = {
     title: PropTypes.string.isRequired,
     link: PropTypes.string.isRequired,

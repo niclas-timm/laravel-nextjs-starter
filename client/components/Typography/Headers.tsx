@@ -9,6 +9,7 @@
 */
 
 import PropTypes from "prop-types";
+import {ReactElement} from "react";
 
 /**
  * The Leading headline for every site.
@@ -18,9 +19,9 @@ import PropTypes from "prop-types";
  * @param {object} props
  *   The props object
  */
-export function H1(props: any) {
+export function H1(props: any): ReactElement {
     // The Css classes that will be appended to the tag.
-    const classes = `text-5xl ${props.withMargin ? "mb-5" : ""} ${
+    const classes: string = `text-5xl ${props.withMargin ? "mb-5" : ""} ${
         props.center ? "text-center" : ""
     } `;
 

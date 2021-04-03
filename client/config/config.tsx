@@ -21,11 +21,11 @@ axios.defaults.baseURL = process.env.NEXT_PUBLIC_API_HOST_URL;
 | A list of routes that is only accessible for authenticated user. If an
 | unauthenticated user tries to access on of the listed routes, she will be
 | redirected to /user/login. The list also respects sub-routes.
-| This means, if you include /dashboard, /dashboard/analytics or /dashboard/1 
+| This means, if you include /dashboard, /dashboard/analytics or /dashboard/1
 | will lead to a redirect if the user is not authenticated.
 |
 */
-export const protectedRoutes = [
+export const protectedRoutes: string[] = [
     process.env.NEXT_PUBLIC_USER_HOME_ROUTE, // -> from .env.local
     // "/profile",
     // "/acount",

@@ -9,8 +9,9 @@
 |
 */
 import PropTypes from "prop-types";
-import { BurgerCircleButton } from "./../Button/Button";
+import {BurgerCircleButton} from "./../Button/Button";
 import tailwindConfig from "./../../tailwind.config";
+import {ReactElement} from "react";
 
 /**
  * A page layout that includes a fixed responsive sidebar
@@ -21,16 +22,18 @@ import tailwindConfig from "./../../tailwind.config";
  * @param {object} props
  */
 export function SidebarLayout({
-    sidebarItems,
-    children,
-    showSidebar,
-    onClickCircleIcon,
-}) {
+                                  sidebarItems,
+                                  children,
+                                  showSidebar,
+                                  onClickCircleIcon,
+                              }): ReactElement {
+
     // Set the class list of the sidebar. If the sidebar should not be shown, set the left property to -100%.
-    const asideClassList = `w-10/12 md:w-1/3 lg:w-72 fixed h-screen lg:left-0 shadow-lg bg-white flex-grow z-50 transition-all pb-12 ${
+    const asideClassList: string = `w-10/12 md:w-1/3 lg:w-72 fixed h-screen lg:left-0 shadow-lg bg-white flex-grow z-50 transition-all pb-12 ${
         showSidebar ? "" : "-left-full"
     }`;
 
+    // Return statement.
     return (
         <div className="w-screen min-h-screen flex relative">
             {/* The sidebar menu on the left side. */}
@@ -55,6 +58,7 @@ export function SidebarLayout({
         </div>
     );
 }
+
 SidebarLayout.propTypes = {
     sidebarItems: PropTypes.element.isRequired,
     children: PropTypes.element.isRequired,
@@ -62,7 +66,8 @@ SidebarLayout.propTypes = {
     onClickCircleIcon: PropTypes.func.isRequired,
 };
 
-export function SidebarPanel({ title, children }) {
+export function SidebarPanel({title, children}): ReactElement {
+
     return (
         <div className="w-full sidebar-panel  bg-white mb-4">
             <div className="w-full text-lg text-black">{title}</div>
@@ -70,6 +75,7 @@ export function SidebarPanel({ title, children }) {
         </div>
     );
 }
+
 SidebarPanel.propTypes = {
     title: PropTypes.string.isRequired,
     children: PropTypes.any.isRequired,
@@ -85,7 +91,7 @@ SidebarPanel.propTypes = {
  */
 export const toggleSidebar = (currentSidebarState: boolean): boolean => {
     // Get the breakpoints from Tailwind config.
-    const breakpoints = {
+    const breakpoints: { sm: number, md: number, lg: number, xl: number } = {
         sm: parseInt(tailwindConfig.theme.screens.sm.replace("px", "")),
         md: parseInt(tailwindConfig.theme.screens.md.replace("px", "")),
         lg: parseInt(tailwindConfig.theme.screens.lg.replace("px", "")),
@@ -98,7 +104,7 @@ export const toggleSidebar = (currentSidebarState: boolean): boolean => {
      * if the function gets called anyways that we only toggle the
      * sidebar state on mobile breakpoints.
      */
-    const windowWidth = window.innerWidth;
+    const windowWidth: number = window.innerWidth;
     if (windowWidth >= breakpoints.lg) {
         return true;
     }

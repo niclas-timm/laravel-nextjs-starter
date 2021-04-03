@@ -9,21 +9,24 @@
 | redirected to the dashboard.
 |
 */
+import {NextRouter, useRouter} from "next/router";
+import {ReactElement, useEffect, useState} from "react";
+import {connect} from "react-redux";
+import {verifyEmail} from "../../../../../store/auth/authActions";
+import {Card} from "./../../../../../components/Card/Card";
+import {H1} from "./../../../../../components/Typography/Headers";
+import {SmallSpinner} from "./../../../../../components/Spinner/Spinner";
 
-import { useRouter } from "next/router";
-import { useState, useEffect } from "react";
-import { connect } from "react-redux";
-import { verifyEmail } from "../../../../../store/auth/authActions";
-import { Card } from "./../../../../../components/Card/Card";
-import { H1 } from "./../../../../../components/Typography/Headers";
-import { SmallSpinner } from "./../../../../../components/Spinner/Spinner";
+function VerifyPassword(props: any): ReactElement {
+    const router: NextRouter = useRouter();
 
-function VerifyPassword(props: any) {
-    const router = useRouter();
-    const { expires, signature, userID, hash } = router.query;
+    const {expires, signature, userID, hash} = router.query;
 
     // State.
-    const [state, setState] = useState({
+    const [state, setState] = useState<{
+        error: string;
+        loading: boolean;
+    }>({
         error: "",
         loading: true,
     });
@@ -60,7 +63,7 @@ function VerifyPassword(props: any) {
     /**
      * Set the text for the H1 header depending on verification status.
      */
-    const headerText = () => {
+    const headerText = (): string => {
         if (state.loading) {
             return "We are currently validating your email address...";
         } else if (!state.loading && !state.error) {
@@ -73,7 +76,7 @@ function VerifyPassword(props: any) {
     /**
      * Set the text for the paragraph depending on verification status.
      */
-    const paragraphText = () => {
+    const paragraphText = (): string => {
         if (state.loading) {
             return "";
         } else if (!state.loading && !state.error) {
@@ -81,11 +84,14 @@ function VerifyPassword(props: any) {
         }
         return "Sorry, something went wrong!";
     };
-    const paragraph = paragraphText();
 
+    const paragraph: string = paragraphText();
+
+    // Return statement.
     return (
         <div className="w-screen h-screen relative">
-            <div className="absolute w-full md:w-3/5 lg:w-1/3 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+            <div
+                className="absolute w-full md:w-3/5 lg:w-1/3 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
                 {/* Card */}
                 <Card
                     additionalInnerClasses="justify-center items-center"
@@ -100,7 +106,7 @@ function VerifyPassword(props: any) {
                         {/* Paragraph */}
                         <p>
                             {" "}
-                            {<SmallSpinner show={state.loading} />}{" "}
+                            {<SmallSpinner show={state.loading}/>}{" "}
                             <span>{paragraph}</span>
                         </p>
                     </>
@@ -110,4 +116,4 @@ function VerifyPassword(props: any) {
     );
 }
 
-export default connect(null, { verifyEmail })(VerifyPassword);
+export default connect(null, {verifyEmail})(VerifyPassword);

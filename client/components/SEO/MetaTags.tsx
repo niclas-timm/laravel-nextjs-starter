@@ -8,9 +8,10 @@
 | relevance for SEO.
 |
 */
-
 import Head from "next/head";
 import PropTypes from "prop-types";
+import {ReactElement} from "react";
+
 export function MetaTags({
     title,
     metaDescription,
@@ -18,7 +19,7 @@ export function MetaTags({
     ogDescription,
     ogImage,
     ogUrl,
-}) {
+}): ReactElement {
     return (
         <>
             <Head>

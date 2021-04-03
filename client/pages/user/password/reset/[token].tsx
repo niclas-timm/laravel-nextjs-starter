@@ -1,19 +1,27 @@
-import { useRouter } from "next/router";
-import { Card } from "./../../../../components/Card/Card";
-import { PrimaryButton } from "./../../../../components/Button/Button";
-import { TextInput } from "./../../../../components/Form/FormElement";
-import { H1 } from "./../../../../components/Typography/Headers";
-import { useState } from "react";
-import { UserValidator } from "../../../../services/UserValidator";
-import { connect } from "react-redux";
-import { resetPassword } from "./../../../../store/auth/authActions";
-import { Alert } from "./../../../../components/Alert/Alert";
+import {useRouter} from "next/router";
+import {Card} from "@/components/Card/Card";
+import {PrimaryButton} from "@/components/Button/Button";
+import {TextInput} from "@/components/Form/FormElement";
+import {H1} from "@/components/Typography/Headers";
+import React, {useState} from "react";
+import {UserValidator} from "@/services/UserValidator";
+import {connect} from "react-redux";
+import {resetPassword} from "@/store/auth/authActions";
+import {Alert} from "@/components/Alert/Alert";
 
 function ResetPassword(props: any) {
     const router = useRouter();
-    const { token } = router.query;
+    const {token} = router.query;
 
-    const [formData, setFormData] = useState({
+    const [formData, setFormData] = useState<{
+        email: string;
+        emailError: string;
+        password: string;
+        passwordError: string;
+        password_confirmed: string;
+        password_confirmedError: string;
+        error: string;
+    }>({
         email: "",
         emailError: "",
         password: "",
@@ -29,7 +37,7 @@ function ResetPassword(props: any) {
      * @param {object} e
      *   The event object.
      */
-    const handleInputChange = (e: React.FormEvent<HTMLInputElement>) => {
+    const handleInputChange = (e: React.FormEvent<HTMLInputElement>): void => {
         setFormData({
             ...formData,
             [e.currentTarget.name]: e.currentTarget.value,
@@ -41,11 +49,12 @@ function ResetPassword(props: any) {
     /**
      * Validate the form data and send it to the api by dispatching a redux action.
      */
-    const submit = async () => {
-        const validator = new UserValidator();
+    const submit = async (): Promise<void> => {
+        const validator: UserValidator = new UserValidator();
 
         // Check if email is valid.
-        const isEmailValid = validator.validateEmail(formData.email);
+        const isEmailValid: boolean = validator.validateEmail(formData.email);
+
         if (!isEmailValid) {
             setFormData({
                 ...formData,
@@ -55,11 +64,12 @@ function ResetPassword(props: any) {
         }
 
         // Check if passwords are valid and equal.
-        const arePasswordsValid = validator.validatePassword(
+        const arePasswordsValid: boolean = validator.validatePassword(
             formData.password,
             formData.password_confirmed,
             8
         );
+
         if (!arePasswordsValid) {
             setFormData({
                 ...formData,
@@ -70,7 +80,7 @@ function ResetPassword(props: any) {
         }
 
         // Make API request via redux.
-        const res = await props.resetPassword(
+        const res: any = await props.resetPassword(
             formData.email,
             formData.password,
             token
@@ -90,9 +100,11 @@ function ResetPassword(props: any) {
         }
     };
 
+    // Return statement.
     return (
         <div className="w-screen h-screen relative">
-            <div className="absolute w-full md:w-3/5 lg:w-1/3 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+            <div
+                className="absolute w-full md:w-3/5 lg:w-1/3 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
                 <Card
                     additionalInnerClasses="justify-center items-center"
                     additionalWrapperClasses="bg-gray-100"
@@ -164,4 +176,4 @@ function ResetPassword(props: any) {
     );
 }
 
-export default connect(null, { resetPassword })(ResetPassword);
+export default connect(null, {resetPassword})(ResetPassword);

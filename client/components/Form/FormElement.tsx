@@ -7,8 +7,8 @@
 | They all have error messages ready to be displayed.
 |
 */
-
 import PropTypes from "prop-types";
+import {ReactElement} from "react";
 
 /**
  * Text input field.
@@ -16,10 +16,13 @@ import PropTypes from "prop-types";
  * @param {object} props
  *   The props object.
  */
-export function TextInput(props: any) {
-    const inputClasses = `w-full px-1 py-2 rounded bg-white focus:outline-none focus:ring-2 focus:ring-purple-600 border ${
+export function TextInput(props: any): ReactElement {
+
+    const inputClasses: string = `w-full px-1 py-2 rounded bg-white focus:outline-none focus:ring-2 focus:ring-purple-600 border ${
         props.errorMsg ? "border-red-500" : "border-transparent"
     } shadow-md focus:border-transparent`;
+
+    // Return statement.
     return (
         <div className="text-input w-full mb-2">
             <input
@@ -52,7 +55,7 @@ TextInput.propTypes = {
  * @param {object} props
  *   The props object.
  */
-export function TextArea(props: any) {
+export function TextArea(props: any): ReactElement {
     return (
         <div>
             <textarea

@@ -7,23 +7,33 @@
 |
 */
 
-import { useState, useEffect } from "react";
-import { connect } from "react-redux";
+import React, {ReactElement, useEffect, useState} from "react";
+import {connect} from "react-redux";
 import PropTypes from "prop-types";
-import { register } from "./../../store/auth/authActions";
-import { UserValidator } from "./../../services/UserValidator";
-import { Card } from "./../../components/Card/Card";
-import { TextInput } from "./../../components/Form/FormElement";
-import { H1 } from "./../../components/Typography/Headers";
-import { PrimaryButton } from "./../../components/Button/Button";
-import { Alert } from "./../../components/Alert/Alert";
+import {register} from "@/store/auth/authActions";
+import {UserValidator} from "@/services/UserValidator";
+import {Card} from "@/components/Card/Card";
+import {TextInput} from "@/components/Form/FormElement";
+import {H1} from "@/components/Typography/Headers";
+import {PrimaryButton} from "@/components/Button/Button";
+import {Alert} from "@/components/Alert/Alert";
 import Link from "next/link";
-import { useRouter } from "next/router";
-import { SmallSpinner } from "./../../components/Spinner/Spinner";
+import {NextRouter, useRouter} from "next/router";
+import {SmallSpinner} from "@/components/Spinner/Spinner";
 
-function Register(props: any) {
-    // The state
-    const [formData, setFormData] = useState({
+function Register(props: any): ReactElement {
+
+    // State.
+    const [formData, setFormData] = useState<{
+        name: string;
+        email: string;
+        password: string;
+        password_confirmed: string;
+        nameError: string;
+        emailError: string;
+        passwordError: string;
+        password_confirmedError: string;
+    }>({
         name: "",
         email: "",
         password: "",
@@ -35,7 +45,7 @@ function Register(props: any) {
     });
 
     // The router object used for redirecting after login.
-    const router = useRouter();
+    const router: NextRouter = useRouter();
 
     // Redirect to user home route if user is authenticated.
     useEffect(() => {
@@ -50,7 +60,7 @@ function Register(props: any) {
      * @param {object} e
      *   The event object.
      */
-    const handleInputChange = (e: React.FormEvent<HTMLInputElement>) => {
+    const handleInputChange = (e: React.FormEvent<HTMLInputElement>): void => {
         setFormData({
             ...formData,
             [e.currentTarget.name]: e.currentTarget.value,
@@ -61,12 +71,12 @@ function Register(props: any) {
     /**
      * Submit the form.
      */
-    const submit = () => {
-        const { name, email, password, password_confirmed } = formData;
+    const submit = (): Promise<any> => {
+        const {name, email, password, password_confirmed} = formData;
 
         // Get instance of userValidator class and validate the input.
-        const userValidator = new UserValidator();
-        const inputErrors = userValidator.validateRegistrationInput(
+        const userValidator: UserValidator = new UserValidator();
+        const inputErrors: boolean | { name: string, email: string, password: string } = userValidator.validateRegistrationInput(
             name,
             email,
             password,
@@ -89,12 +99,12 @@ function Register(props: any) {
         // Make API call if validaton was successful.
         props.register(name, email, password, password_confirmed);
     };
-    /**
-     * The Return statement. Responsible for rendering the markup.
-     */
+
+    // The Return statement.
     return (
         <div className="w-screen h-screen relative">
-            <div className="absolute w-full md:w-3/5 lg:w-1/3 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+            <div
+                className="absolute w-full md:w-3/5 lg:w-1/3 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
                 <Card
                     additionalInnerClasses="justify-center items-center"
                     additionalWrapperClasses="bg-gray-100"
@@ -164,7 +174,7 @@ function Register(props: any) {
                                 submit();
                             }}
                         >
-                            <SmallSpinner show={props.loading} />
+                            <SmallSpinner show={props.loading}/>
                             Register
                         </PrimaryButton>
 
@@ -195,4 +205,4 @@ Register.propTypes = {
     props: PropTypes.object,
     register: PropTypes.func,
 };
-export default connect(mapStateToProps, { register })(Register);
+export default connect(mapStateToProps, {register})(Register);

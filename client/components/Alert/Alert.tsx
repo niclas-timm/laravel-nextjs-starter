@@ -9,10 +9,11 @@
 */
 
 import PropTypes from "prop-types";
+import {ReactElement} from "react";
 
-export function Alert({ type, children }) {
+export function Alert({type, children}): ReactElement {
     // Determine the classes of the alert depending ong the type given as a prop.
-    const alertType = () => {
+    const alertType = (): string => {
         switch (type) {
             case "danger":
                 return "bg-red-300 text-red-500";
@@ -25,10 +26,13 @@ export function Alert({ type, children }) {
         }
     };
 
-    const alertTypeClasses = alertType();
+    const alertTypeClasses: string = alertType();
     const classes = `w-full rounded flex justify-center items-center px-2 py-1 ${alertTypeClasses}`;
+
+    // Returns statement.
     return <div className={classes}>{children}</div>;
 }
+
 Alert.propTypes = {
     children: PropTypes.any,
     type: PropTypes.string.isRequired,

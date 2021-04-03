@@ -7,26 +7,27 @@
 | deleting the others to keep you javascript bundle size as small as possible.
 |
 */
-
 import Link from "next/link";
-import { useState } from "react";
+import {ReactElement, useState} from "react";
 import PropTypes from "prop-types";
 
 /**
  * The default nabvar.
  */
-export function Navbar() {
-    const [showSidebar, toggleSidebar] = useState(false);
+export function Navbar(): ReactElement {
+    const [showSidebar, toggleSidebar] = useState<boolean>(false);
 
-    const toggleNavbar = () => {
+    const toggleNavbar = (): void => {
         toggleSidebar(!showSidebar);
     };
 
-    const sidebarOffset = `${
+    const sidebarOffset: string = `${
         showSidebar
             ? "right-0"
             : "-right-full md:-right-1/2 lg:-right-1/3 xl:-right-1/4"
     }`;
+
+    // Return statement.
     return (
         <>
             {/* The Menu Bar that the horizontal bar at the top of the screen that is shown on all breakpoints. It includes the logo als well as the Burger Menu */}
@@ -77,15 +78,16 @@ export function Navbar() {
 /**
  * A Mega Menu that takes the full witdth and height of the screen.
  */
-export function MegaMenu() {
-    const [showSidebar, toggleSidebar] = useState(false);
+export function MegaMenu(): ReactElement {
+    const [showSidebar, toggleSidebar] = useState<boolean>(false);
 
-    const toggleNavbar = () => {
+    const toggleNavbar = (): void => {
         toggleSidebar(!showSidebar);
     };
 
-    const sidebarOffset = `${showSidebar ? "right-0" : "-right-full"}`;
+    const sidebarOffset: string = `${showSidebar ? "right-0" : "-right-full"}`;
 
+    // Return statement.
     return (
         <>
             {/* The Menu Bar that the horizontal bar at the top of the screen that is shown on all breakpoints. It includes the logo als well as the Burger Menu */}
@@ -137,7 +139,7 @@ export function MegaMenu() {
  * A Link that can be displayed in the menu.
  * @param {object} props
  */
-export function NavbarMenuLink({ title, link, onClick }) {
+export function NavbarMenuLink({ title, link, onClick }): ReactElement {
     return (
         <Link href={link}>
             <h4
@@ -156,7 +158,7 @@ NavbarMenuLink.propTypes = {
 };
 
 // The horizontal menu bar.
-export function MenuBar({ onClick }) {
+export function MenuBar({ onClick }): ReactElement {
     return (
         <nav className="w-screen py-3 px-2 flex sticky top-0 items-center justify-between bg-purple-50 z-40">
             <Link href="/">
