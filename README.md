@@ -1,9 +1,11 @@
 # Laravel Next.js Starter Kit
 
+Find the official documentation at [ln-starterkit.com](https://ln-starterkit.com)
+
 ## What’s inside?
 
 Laravel and Next.js are two awesome frameworks to build modern Web-Apps. However, creating a Laravel based API and hooking it up to a Next.js frontend (or any other SPA Frontend) can be a quite tedious task that involves a lot of boilerplate (e.g., authentication).
-This repo provides a Starter Kit that hooks up a Laravel 8 API to a Next.js 10 Frontend and includes all the basic features you need, so you can focus on the important and unique parts of your app.
+This Starter Kit hooks up a Laravel 8 API to a Next.js 10 frontend and includes all the basic features you need, so you can focus on the important and unique parts of your app.
 The Kit includes:
 
 -   Hooking up backend and frontend (CORS, settings, default base URLs etc.)
@@ -16,7 +18,8 @@ The Kit includes:
 -   Tailwind CSS
 -   Flexible customisation options via .env files
 -   User roles
--   TypeScript support.
+-   TypeScript support
+-   Dockerization (incl. custom bash scripts for spinning everythin up, XDebug, PhpMyAdmin, Redis...)
 
 ## Disclaimer
 
@@ -38,7 +41,14 @@ cp .env.example .env
 
 Now open the `.env` file and fill in the values as needed. You might notice that the file is very similar to the default `.env` file that ships with Laravel, but it’s not 100% the same. Some values are already set or changed (e.g., `SESSION_DRIVER`) and some new ones are added. These configurations are necessary in order to hook the backend up to the frontend.
 If you run your frontend on the default URL and Port (http://localhost:3000), you only need to replace the XXXXXXXXXXXXXXXX values. If you do not want to use the Next.js default URL and Port, you also need to adjust the `SANCTUM_STATEFUL_DOMAINS` variable. Please only provide ONE value here. This means NO comma separated URLs.
+If you take advantage of the containerization you should be good to go without changing anything except the email settings (see below) as everything is prepopulated correctly in the `.env.example` file.
 Notice: The repo uses some email functionality (registration, password reset). If you do not want these features, you must make some small tweaks. However, if you do want to take advantage of these features you MUST configure you email settings correctly. The app will break otherwise. Luckily, Laravel makes this extremely easy. More on that later on.
+
+Once you're done you must install all the dependencies via composer:
+
+```
+composer install
+```
 
 #### Migrations
 
