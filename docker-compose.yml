@@ -1,15 +1,14 @@
 version: "3"
 services:
-  app:
+  backend:
     build:
-      context: ./VM
+      context: ./
       dockerfile: Dockerfile
     ports:
       - "${APP_PORT:-80}:80"
-      - "3000:3000"
       - "8000:8000"
     volumes:
-      - ".:/var/www/html"
+      - ".:/var/www/html"  
     networks:
       - app
     environment:
@@ -17,7 +16,15 @@ services:
     depends_on:
       - db
       - redis
-
+  frontend:
+    image: "node"
+    volumes:
+      - "./client:/var/www/html"
+    working_dir: "/var/www/html"
+    ports:
+      - "3000:3000"
+    command: bash -c "npm install && npm run dev"
+    
   db:
     image: "mysql:8.0"
     ports:
