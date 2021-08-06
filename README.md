@@ -212,3 +212,7 @@ To set it up in your app, all you have to do is navigate to `/client/.env.local`
 ## Contact
 
 If you have feedback, questions or anything else, feel free to leave me a mail under niclastimmdev@gmail.com or hit me up on Twitter under @niclas_timm. Looking forward to hearing from you :).
+
+## License
+
+The Laravel Next.js Starter-Kit is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
