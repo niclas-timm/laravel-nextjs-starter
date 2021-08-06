@@ -1,7 +1,34 @@
 const colors = require('tailwindcss/colors')
 
 module.exports = {
-  purge: [],
+  // Purge all ts and js files
+  // when runnin `npm run build`.
+  purge: [
+    './pages/*.ts',
+    './pages/*.tsx',
+    './pages/*.jsx',
+    './pages/*.js',
+    './pages/**/*.ts',
+    './pages/**/*.tsx',
+    './pages/**/*.jsx',
+    './pages/**/*.js',
+    './pages/**/**/*.ts',
+    './pages/**/**/*.tsx',
+    './pages/**/**/*.jsx',
+    './pages/**/**/*.js',
+    './components/*.ts',
+    './components/*.tsx',
+    './components/*.jsx',
+    './components/*.js',
+    './components/**/*.ts',
+    './components/**/*.tsx',
+    './components/**/*.jsx',
+    './components/**/*.js',
+    './components/**/**/*.ts',
+    './components/**/**/*.tsx',
+    './components/**/**/*.jsx',
+    './components/**/**/*.js',
+  ],
   presets: [],
   darkMode: false, // or 'media' or 'class'
   theme: {
