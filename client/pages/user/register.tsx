@@ -1,25 +1,16 @@
-/*
-|--------------------------------------------------------------------------
-| Login View.
-|--------------------------------------------------------------------------
-|
-| The view where a user can log in. Redux is used to make the api call.
-|
-*/
-
-import React, {ReactElement, useEffect, useState} from "react";
-import {connect} from "react-redux";
+import React, { ReactElement, useEffect, useState } from "react";
+import { connect } from "react-redux";
 import PropTypes from "prop-types";
-import {register} from "@/store/auth/authActions";
-import {UserValidator} from "@/services/UserValidator";
-import {Card} from "@/components/Card/Card";
-import {TextInput} from "@/components/Form/FormElement";
-import {H1} from "@/components/Typography/Headers";
-import {PrimaryButton} from "@/components/Button/Button";
-import {Alert} from "@/components/Alert/Alert";
+import { register } from "@/store/auth/authActions";
+import { UserValidator } from "@/services/UserValidator";
+import { Card } from "@/components/Card/Card";
+import { TextInput } from "@/components/Form/FormElement";
+import { H1 } from "@/components/Typography/Headers";
+import { PrimaryButton } from "@/components/Button/Button";
+import { Alert } from "@/components/Alert/Alert";
 import Link from "next/link";
-import {NextRouter, useRouter} from "next/router";
-import {SmallSpinner} from "@/components/Spinner/Spinner";
+import { NextRouter, useRouter } from "next/router";
+import { SmallSpinner } from "@/components/Spinner/Spinner";
 
 function Register(props: any): ReactElement {
 
@@ -72,7 +63,7 @@ function Register(props: any): ReactElement {
      * Submit the form.
      */
     const submit = (): Promise<any> => {
-        const {name, email, password, password_confirmed} = formData;
+        const { name, email, password, password_confirmed } = formData;
 
         // Get instance of userValidator class and validate the input.
         const userValidator: UserValidator = new UserValidator();
@@ -174,16 +165,14 @@ function Register(props: any): ReactElement {
                                 submit();
                             }}
                         >
-                            <SmallSpinner show={props.loading}/>
+                            <SmallSpinner show={props.loading} />
                             Register
                         </PrimaryButton>
 
                         {/* Additional links. */}
                         <div className="w-full flex mt-3 text-blue-500">
                             <Link href="/user/login">
-                                <a className="text-xs underline">
-                                    Already have an account?
-                                </a>
+                                Already have an account?
                             </Link>
                         </div>
                     </>
@@ -205,4 +194,4 @@ Register.propTypes = {
     props: PropTypes.object,
     register: PropTypes.func,
 };
-export default connect(mapStateToProps, {register})(Register);
+export default connect(mapStateToProps, { register })(Register);

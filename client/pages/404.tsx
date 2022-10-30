@@ -32,7 +32,7 @@ function FourOFour(props: any) {
             </H1>
             <h2 className="text-xl text-purple-500 text-center underline flex hover:text-purple-700 transition">
                 <Link href={linkLocation}>
-                    <a>Go Home</a>
+                    Go Home
                 </Link>
             </h2>
         </div>

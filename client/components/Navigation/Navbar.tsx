@@ -1,12 +1,3 @@
-/*
-|--------------------------------------------------------------------------
-| A collection of navbar components.
-|--------------------------------------------------------------------------
-|
-| Use any one you like. Once you decided for one, you might want to consider
-| deleting the others to keep you javascript bundle size as small as possible.
-|
-*/
 import Link from "next/link";
 import {ReactElement, useState} from "react";
 import PropTypes from "prop-types";
@@ -162,7 +153,7 @@ export function MenuBar({ onClick }): ReactElement {
     return (
         <nav className="w-screen py-3 px-2 flex sticky top-0 items-center justify-between bg-purple-50 z-40">
             <Link href="/">
-                <a>Blog</a>
+                Blog
             </Link>
             <div className="h-full cursor-pointer" onClick={onClick}>
                 <svg

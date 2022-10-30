@@ -1,12 +1,3 @@
-/*
-|--------------------------------------------------------------------------
-| Card components.
-|--------------------------------------------------------------------------
-|
-| A collection of Components that fall under the "card" category and deliver
-| a nice ui separation from the rest of the websites content.
-|
-*/
 import PropTypes from "prop-types";
 import {ReactElement} from "react";
 

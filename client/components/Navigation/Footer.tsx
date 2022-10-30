@@ -1,12 +1,3 @@
-/*
-|--------------------------------------------------------------------------
-| A collection of Footer components.
-|--------------------------------------------------------------------------
-|
-| Use any one you like. Once you decided for one, you might want to consider
-| deleting the others to keep you javascript bundle size as small as possible.
-|
-*/
 import Link from "next/link";
 import PropTypes from "prop-types";
 import {ReactElement} from "react";

@@ -1,14 +1,5 @@
-/*
-|--------------------------------------------------------------------------
-| Button components.
-|--------------------------------------------------------------------------
-|
-| A collection of buttons that are ready to plug and play.
-|
-*/
-
 import PropTypes from "prop-types";
-import {ReactElement} from "react";
+import { ReactElement } from "react";
 
 /**
  * The Primary Button. Primarily used for CTAs.
@@ -37,11 +28,10 @@ PrimaryButton.propTypes = {
  * @param {object} props
  */
 export function SwiperButton(props: any) {
-    const outerClasses = `toggle-checkbox flex align-center items-center inline-block rounded-2xl p-1 h-8 w-14 ${
-        props.checked
+    const outerClasses = `toggle-checkbox flex align-center items-center inline-block rounded-2xl p-1 h-8 w-14 ${props.checked
             ? "bg-purple-700 justify-end"
             : "bg-gray-300 justify-start"
-    } cursor-pointer transition-all duration-100 ease-in`;
+        } cursor-pointer transition-all duration-100 ease-in`;
     const innerClasses = `rounded-full h-6 w-6 bg-gray-700 transition-all duration-500 ease-in`;
     return (
         <div className={outerClasses} onClick={props.onClick}>
@@ -54,7 +44,7 @@ export function SwiperButton(props: any) {
  * A circe round button.
  * @param {object} props
  */
-export function CircleButton({children, onClick, additionalClasses}) {
+export function CircleButton({ children, onClick, additionalClasses }) {
     const classList = `${additionalClasses} mb-3 mr-3 rounded-full p-2 bg-purple-500 text-pruple-700 focus:outline-none cursour-pointer text-white hover:bg-purple-700`;
     return (
         <button className={classList} onClick={onClick}>
@@ -74,7 +64,7 @@ CircleButton.propTypes = {
  *
  * @param {object} props
  */
-export function BurgerCircleButton({onClick, additionalClasses}) {
+export function BurgerCircleButton({ onClick, additionalClasses }) {
     return (
         <CircleButton onClick={onClick} additionalClasses={additionalClasses}>
             <svg
