@@ -1,11 +1,3 @@
-/*
-|--------------------------------------------------------------------------
-| The home page.
-|--------------------------------------------------------------------------
-|
-| The home page of your application.
-|
-*/
 import Link from "next/link";
 import { H1 } from "./../components/Typography/Headers";
 
@@ -23,7 +15,7 @@ export default function Home() {
                     </p>
                     <div className="flex justify-between items-center text-blue-500 underline">
                         <Link href="https://github.com/NiclasTimmeDev/laravel-nextjs-starter">
-                            <a target="_blank">Documentation</a>
+                            Documentation
                         </Link>
                         <Link href="/user/login">Login</Link>
                         <Link href="/user/register">Register</Link>

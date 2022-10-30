@@ -1,13 +1,3 @@
-/*
-|--------------------------------------------------------------------------
-| Sidebar component.
-|--------------------------------------------------------------------------
-|
-| A sidebar component that you can use to wrap the layout of you page.
-| It's ideal for admin dashboards or documentation pages where you want
-| the user to have broader selection of links or options.
-|
-*/
 import PropTypes from "prop-types";
 import {BurgerCircleButton} from "./../Button/Button";
 import tailwindConfig from "./../../tailwind.config";

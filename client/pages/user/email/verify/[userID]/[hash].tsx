@@ -1,14 +1,3 @@
-/*
-|--------------------------------------------------------------------------
-| Email verification view.
-|--------------------------------------------------------------------------
-|
-| The user will get the link to this view per mail. It includes userId, hash,
-| expiration data and signature in the url, which will be sent to the api upon
-| mount of the app. If the email verification was successfull, the user will be
-| redirected to the dashboard.
-|
-*/
 import { NextRouter, useRouter } from "next/router";
 import { ReactElement, useEffect, useState } from "react";
 import { connect } from "react-redux";

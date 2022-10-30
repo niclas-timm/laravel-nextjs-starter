@@ -1,12 +1,3 @@
-/*
-|--------------------------------------------------------------------------
-| Login View.
-|--------------------------------------------------------------------------
-|
-| The view where a user can log in. Redux is used to make the api call.
-|
-*/
-
 import React, { ReactElement, useEffect, useState } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
@@ -146,14 +137,10 @@ const Login = (props: any): ReactElement => {
                         {/* Additional links. */}
                         <div className="w-full flex justify-between mt-3 text-blue-500">
                             <Link href="/user/register">
-                                <a className="text-xs underline">
-                                    No Account yet?
-                                </a>
+                                No Account yet?
                             </Link>
                             <Link href="/user/password/forgot">
-                                <a className="text-xs underline">
-                                    Forgot password?
-                                </a>
+                                Forgot password?
                             </Link>
                         </div>
                     </>

@@ -1,17 +1,7 @@
-/*
-|--------------------------------------------------------------------------
-| Alert components.
-|--------------------------------------------------------------------------
-|
-| A collection of different alerts that can be used to notify the user about
-| important events & state changes.
-|
-*/
-
 import PropTypes from "prop-types";
-import {ReactElement} from "react";
+import { ReactElement } from "react";
 
-export function Alert({type, children}): ReactElement {
+export function Alert({ type, children }): ReactElement {
     // Determine the classes of the alert depending ong the type given as a prop.
     const alertType = (): string => {
         switch (type) {

@@ -1,17 +1,8 @@
-/*
-|--------------------------------------------------------------------------
-| Meta Tag components.
-|--------------------------------------------------------------------------
-|
-| Here you can find components that are related to the meta tags. You should
-| try to include them on as many pages as possible, as they have a high
-| relevance for SEO.
-|
-*/
 import Head from "next/head";
 import PropTypes from "prop-types";
-import {ReactElement} from "react";
+import { ReactElement } from "react";
 
+// COMPONENT
 export function MetaTags({
     title,
     metaDescription,
@@ -41,6 +32,27 @@ export function MetaTags({
         </>
     );
 }
+
+export const OriginalMetaTags = ({
+    pageName = "Clinic"
+}:{
+    pageName?: string;
+}) => {
+    return (
+        <Head>
+            <title>{pageName} | Kelompok 4</title>
+            <meta name="description" content="E-Commerce Tim 4 Present. Fast Clinic Reservation with SEO friendly" />
+            <meta name="keywords" content="E-Commerce,Clinic,Laravel,NextJS" />
+            <link
+                rel="shortcut icon"
+                href="https://w7.pngwing.com/pngs/957/974/png-transparent-hospital-logo-clinic-health-care-physician-business-thumbnail.png"
+                type="image/png"
+            />
+        </Head>
+    )
+}
+
+// PROPS
 MetaTags.propTypes = {
     title: PropTypes.string.isRequired,
     metaDescription: PropTypes.string.isRequired,
