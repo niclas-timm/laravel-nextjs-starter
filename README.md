@@ -19,7 +19,7 @@ The Kit includes:
 -   Flexible customisation options via .env files
 -   User roles
 -   TypeScript support
--   Dockerization (incl. custom bash scripts for spinning everythin up, XDebug, PhpMyAdmin, Redis...)
+-   Dockerization (incl. custom bash scripts for spinning everything up, XDebug, PhpMyAdmin, Redis...)
 
 ## Disclaimer
 
@@ -157,7 +157,7 @@ Most Web-Apps these days require email verification for new users. As the Larave
 
 **Important**: If you want email verification in your project you MUST properly configure your email settings. Otherwise the application will break, as the Laravel API wants to send an email but does not find the right settings. Find out how to do that in the „Email testing“ section.
 
-Once that’s done you can test things out on the frontend. Visit `/user/register` and create an account. Afterwards, check your email inbox (e.g. MailTrap) for new mails. You will se a new mail with a link to a URL. Click it. By opening the page, a request with information from the URL will be sent to the API. If the verification was successful, you will be redirected to your User Home Route (set in `/client/.env.local`). If the the verification fails an error message will be displayed and you will not be redirected.
+Once that’s done you can test things out on the frontend. Visit `/user/register` and create an account. Afterwards, check your email inbox (e.g. MailTrap) for new mails. You will se a new mail with a link to a URL. Click it. By opening the page, a request with information from the URL will be sent to the API. If the verification was successful, you will be redirected to your User Home Route (set in `/client/.env.local`). If the verification fails an error message will be displayed and you will not be redirected.
 
 If you don’t want email verification on your project, navigate to `app/Models/User` and delete the `implements MustVerifyEmail` part of the class definition statement. Then, delete the `client/pages/user/email` directory and delete the `verifyEmail` function in `/client/store/auth/authActions.tsx`. For security reasons you might also want to deny access to the backend route from the frontend to the API. To accomplish this, open `/config/cors.php` and delete `"email/verify/*"` from the `paths` array.
 
@@ -184,7 +184,7 @@ You can define the email of the Super-Admin in the `.env` at the root directory 
 
 With traditional Single Page Applications like create-react-app, a common problem is „page flashing“ when trying to redirect a visitor. For example, an authenticated user should be immediately redirected to another page if she tries to access the login route. However, a traditional React app would for a short time still render the login view, as the authentication checks would only be conducted after the first component mount.
 
-This comes to an end with Server Side Rendering (SSR) and this Starter Kit. Before rendering a view, the authentication status of a user is checked and a redirect conducted before the „old“ view is rendered, if necessary. Try it out yourself! Log in and then try to access `/user/login` again. Watch the Url bar! Before anything is rendered to the page you will be redirected the the user home page.
+This comes to an end with Server Side Rendering (SSR) and this Starter Kit. Before rendering a view, the authentication status of a user is checked and a redirect conducted before the „old“ view is rendered, if necessary. Try it out yourself! Log in and then try to access `/user/login` again. Watch the Url bar! Before anything is rendered to the page you will be redirected the user home page.
 
 ### How it works
 
@@ -205,13 +205,13 @@ There are a few custom components at `/client/components`, mostly for demo purpo
 
 ## Google Tag Manager
 
-If you want to build a production ready application you probably want to include tracking tools or other 3rd party scipts. You can of course do all that directly in the source code, but doing it via the [Google Tag Manager](https://tagmanager.google.com/ (GTM) makes this much more easy and flexible. Just create a free GTM account, integrate it to your website and inject all other needed scripts (e.g., Google Analytics) via GTM. This also comes in handy if you want to include a Cookie-Banner from a 3rd Party like [Cookiebot](https://www.cookiebot.com/) and hook it up to your tracking tools in order to meet GDPR standards.
+If you want to build a production ready application you probably want to include tracking tools or other 3rd party scripts. You can of course, do all that directly in the source code, but doing it via the [Google Tag Manager](https://tagmanager.google.com/ (GTM) makes this much more easy and flexible. Just create a free GTM account, integrate it to your website and inject all other needed scripts (e.g., Google Analytics) via GTM. This also comes in handy if you want to include a Cookie-Banner from a 3rd Party like [Cookiebot](https://www.cookiebot.com/) and hook it up to your tracking tools in order to meet GDPR standards.
 
-To set it up in your app, all you have to do is navigate to `/client/.env.local` and paste you GTM id (typically starts with „GTM-…“) as the value for the `NEXT_PUBLIC_GOOGLE_TAG_MANAGER_ID`. If you do not set this value, the GTM script will simply not be fired. No big deal.
+To set it up in your app, all you have to do is navigate to `/client/.env.local` and paste your GTM id (typically starts with „GTM-…“) as the value for the `NEXT_PUBLIC_GOOGLE_TAG_MANAGER_ID`. If you do not set this value, the GTM script will simply not be fired. No big deal.
 
 ## Contact
 
-If you have feedback, questions or anything else, feel free to leave me a mail under niclastimmdev@gmail.com or hit me up on Twitter under @niclas_timm. Looking forward to hearing from you :).
+If you have feedback, questions or anything else, feel free to leave me a mail at niclastimmdev@gmail.com or hit me up on Twitter under @niclas_timm. Looking forward to hearing from you :).
 
 ## License
 
